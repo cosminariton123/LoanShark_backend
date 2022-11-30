@@ -4,9 +4,11 @@ import com.loansharkmss.LoanShark.exceptions.InternalServerError;
 import com.loansharkmss.LoanShark.exceptions.NotFoundException;
 import com.loansharkmss.LoanShark.model.TestModel;
 import com.loansharkmss.LoanShark.repository.TestModelRepository;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+@Service
 public class TestService {
 
     TestModelRepository testModelRepository;
