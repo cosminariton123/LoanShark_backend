@@ -15,4 +15,28 @@ public class TestModel {
 
     @Column(name = "string_value")
     private String stringValue;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getNumericalValue() {
+        return numericalValue;
+    }
+
+    public void setNumericalValue(Integer numericalValue) {
+        this.numericalValue = numericalValue;
+    }
+
+    public String getStringValue() {
+        return stringValue;
+    }
+
+    public void setStringValue(String stringValue) {
+        this.stringValue = stringValue;
+    }
 }
