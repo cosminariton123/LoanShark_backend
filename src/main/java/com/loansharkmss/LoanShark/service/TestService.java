@@ -24,6 +24,10 @@ public class TestService {
         return testModel;
     }
 
+    public TestModel saveTestModel(TestModel testModel) {
+        return testModelRepository.save(testModel);
+    }
+
     @Transactional
     public TestModel deleteTestModelById(Integer id) {
         TestModel testModel = findTestModelById(id);
