@@ -2,7 +2,7 @@ package com.loansharkmss.LoanShark.dtos;
 
 import javax.validation.constraints.*;
 
-public class TestModelGetDTO {
+public class TestModelCreateDTO {
 
     @NotNull(message = "numericalValue must not be null")
     @Min(value = 0, message = "numericalValue must be greater than 0")
