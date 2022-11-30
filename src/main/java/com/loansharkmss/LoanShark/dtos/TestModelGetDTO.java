@@ -14,4 +14,19 @@ public class TestModelGetDTO {
     @Pattern(regexp = "aaa.*aaa", message = "stringValue must should comply with regex aaa.*aaa")
     private String stringValue;
 
+    public Integer getNumericalValue() {
+        return numericalValue;
+    }
+
+    public void setNumericalValue(Integer numericalValue) {
+        this.numericalValue = numericalValue;
+    }
+
+    public String getStringValue() {
+        return stringValue;
+    }
+
+    public void setStringValue(String stringValue) {
+        this.stringValue = stringValue;
+    }
 }
