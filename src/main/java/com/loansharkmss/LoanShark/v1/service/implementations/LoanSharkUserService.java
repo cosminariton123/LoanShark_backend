@@ -1,19 +1,20 @@
-package com.loansharkmss.LoanShark.v1.service;
+package com.loansharkmss.LoanShark.v1.service.implementations;
 
 import com.loansharkmss.LoanShark.v1.exceptions.InternalServerError;
 import com.loansharkmss.LoanShark.v1.exceptions.NotFoundException;
 import com.loansharkmss.LoanShark.v1.model.User;
 import com.loansharkmss.LoanShark.v1.repository.UserRepository;
+import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 @Service
-public class UserService {
+public class LoanSharkUserService implements UserService {
 
     UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public LoanSharkUserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
