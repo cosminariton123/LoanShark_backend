@@ -1,29 +1,37 @@
-package com.loansharkmss.LoanShark.dtos;
+package com.loansharkmss.LoanShark.v1.model;
 
-import javax.validation.constraints.*;
+import javax.persistence.*;
 
-public class UserCreateDTO {
+@Entity
+@Table
+public class User {
 
-    @NotNull(message = "email must not be null")
-    @NotBlank(message = "email must not be blank")
-    @Pattern(regexp = "^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-]+$", message = "email does not have a valid structure")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "email")
     private String email;
 
-    @NotNull(message = "username must not be null")
-    @NotBlank(message = "username must not be blank")
+    @Column(name = "string_value")
     private String username;
 
-    @NotNull(message = "password must not be null")
-    @NotBlank(message = "password must not blank")
+    @Column(name = "password")
     private String password;
 
-    @NotNull(message = "firstName must not be null")
-    @NotBlank(message = "firstName must not be blank")
+    @Column(name = "first_name")
     private String firstName;
 
-    @NotNull(message = "lastName must not be null")
-    @NotBlank(message = "lastName must not be blank")
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public Integer getId() {
+        return id;
+    }
 
     public String getPassword() {
         return password;
@@ -63,5 +71,13 @@ public class UserCreateDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

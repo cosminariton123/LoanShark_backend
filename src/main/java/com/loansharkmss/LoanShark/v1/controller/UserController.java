@@ -1,9 +1,10 @@
-package com.loansharkmss.LoanShark.controller;
+package com.loansharkmss.LoanShark.v1.controller;
 
-import com.loansharkmss.LoanShark.dtos.UserCreateDTO;
-import com.loansharkmss.LoanShark.mappers.UserMapper;
-import com.loansharkmss.LoanShark.model.User;
-import com.loansharkmss.LoanShark.service.UserService;
+import com.loansharkmss.LoanShark.v1.config.RestControllerV1;
+import com.loansharkmss.LoanShark.v1.dtos.UserCreateDTO;
+import com.loansharkmss.LoanShark.v1.mappers.UserMapper;
+import com.loansharkmss.LoanShark.v1.model.User;
+import com.loansharkmss.LoanShark.v1.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 
-@RestController
 @Validated
+@RestControllerV1
 @RequestMapping("/user")
 public class UserController {
 
