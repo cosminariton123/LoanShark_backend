@@ -1,4 +1,4 @@
-package com.loansharkmss.LoanShark.exceptions;
+package com.loansharkmss.LoanShark.v1.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

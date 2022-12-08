@@ -1,9 +1,8 @@
-package com.loansharkmss.LoanShark.mappers;
+package com.loansharkmss.LoanShark.v1.mappers;
 
-import com.loansharkmss.LoanShark.dtos.UserCreateDTO;
-import com.loansharkmss.LoanShark.model.Role;
-import com.loansharkmss.LoanShark.model.User;
-import com.loansharkmss.LoanShark.service.UserService;
+import com.loansharkmss.LoanShark.v1.dtos.UserCreateDTO;
+import com.loansharkmss.LoanShark.v1.model.Role;
+import com.loansharkmss.LoanShark.v1.model.User;
 import org.springframework.stereotype.Component;
 
 @Component

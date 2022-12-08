@@ -1,9 +1,9 @@
-package com.loansharkmss.LoanShark.service;
+package com.loansharkmss.LoanShark.v1.service;
 
-import com.loansharkmss.LoanShark.exceptions.InternalServerError;
-import com.loansharkmss.LoanShark.exceptions.NotFoundException;
-import com.loansharkmss.LoanShark.model.User;
-import com.loansharkmss.LoanShark.repository.UserRepository;
+import com.loansharkmss.LoanShark.v1.exceptions.InternalServerError;
+import com.loansharkmss.LoanShark.v1.exceptions.NotFoundException;
+import com.loansharkmss.LoanShark.v1.model.User;
+import com.loansharkmss.LoanShark.v1.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

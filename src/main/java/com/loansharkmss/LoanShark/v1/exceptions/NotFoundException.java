@@ -1,4 +1,4 @@
-package com.loansharkmss.LoanShark.exceptions;
+package com.loansharkmss.LoanShark.v1.exceptions;
 
 public class NotFoundException extends RuntimeException{
     public NotFoundException(String message){

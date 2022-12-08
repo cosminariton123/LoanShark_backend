@@ -1,4 +1,4 @@
-package com.loansharkmss.LoanShark.model;
+package com.loansharkmss.LoanShark.v1.model;
 
 public enum Role {
 
