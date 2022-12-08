@@ -2,9 +2,9 @@ package com.loansharkmss.LoanShark.v1.controller;
 
 import com.loansharkmss.LoanShark.v1.config.RestControllerV1;
 import com.loansharkmss.LoanShark.v1.dtos.UserCreateDTO;
-import com.loansharkmss.LoanShark.v1.mappers.UserMapper;
+import com.loansharkmss.LoanShark.v1.mappers.interfaces.UserMapper;
 import com.loansharkmss.LoanShark.v1.model.User;
-import com.loansharkmss.LoanShark.v1.service.UserService;
+import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
