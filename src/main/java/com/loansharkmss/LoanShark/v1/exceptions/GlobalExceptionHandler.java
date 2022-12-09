@@ -42,6 +42,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(responseParameters);
     }
 
+    @ExceptionHandler({Unauthorized.class})
+    public ResponseEntity<Map<String, String>> handleUnauthorized(RuntimeException exception){
+        Map<String, String> responseParameters = new HashMap<>();
+        responseParameters.put("Status: ", "401 Unauthorized");
+        responseParameters.put("Reason: ", exception.getMessage());
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseParameters);
+    }
+
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception){
         String message = exception.getBindingResult().getAllErrors().stream()
