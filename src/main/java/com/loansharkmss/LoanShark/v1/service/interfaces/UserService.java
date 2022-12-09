@@ -6,6 +6,10 @@ public interface UserService {
 
     public User findUserById(Integer id);
 
+    public  User findUserByEmail(String email);
+
+    public User findUserByUsername(String username);
+
     public User saveNewUser(User user);
 
     public User deleteUserById(Integer id);
