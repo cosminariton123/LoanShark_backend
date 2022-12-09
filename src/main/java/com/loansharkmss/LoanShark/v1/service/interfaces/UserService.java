@@ -10,6 +10,10 @@ public interface UserService {
 
     public User findUserByUsername(String username);
 
+    public Boolean isAnyUserWithEmail(String email);
+
+    public Boolean isAnyUserWithUsername(String username);
+
     public User saveNewUser(User user);
 
     public User deleteUserById(Integer id);
