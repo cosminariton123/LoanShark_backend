@@ -46,20 +46,15 @@ public class LoanSharkUserService implements UserService {
         return user;
     }
 
-    public Boolean isAnyUserWithEmail(String email) {
-        User user = userRepository.findUserByEmail(email);
+    public User findUserByEmailOrUsername(String username_or_email) {
+        User user = userRepository.findUserByUsername(username_or_email);
 
         if (user == null)
-            return false;
-        return true;
-    }
-
-    public Boolean isAnyUserWithUsername(String username) {
-        User user = userRepository.findUserByUsername(username);
+            user = userRepository.findUserByEmail(username_or_email);
 
         if (user == null)
-            return false;
-        return true;
+            throw new NotFoundException("User with username_or_email " + username_or_email + " not found");
+        return user;
     }
 
     public User saveNewUser(User user) {

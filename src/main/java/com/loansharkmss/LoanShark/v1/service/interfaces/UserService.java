@@ -10,9 +10,7 @@ public interface UserService {
 
     public User findUserByUsername(String username);
 
-    public Boolean isAnyUserWithEmail(String email);
-
-    public Boolean isAnyUserWithUsername(String username);
+    public User findUserByEmailOrUsername(String username_or_email);
 
     public User saveNewUser(User user);
 
