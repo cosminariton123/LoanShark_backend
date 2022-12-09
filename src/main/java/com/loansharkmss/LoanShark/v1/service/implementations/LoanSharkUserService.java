@@ -1,5 +1,6 @@
 package com.loansharkmss.LoanShark.v1.service.implementations;
 
+import com.loansharkmss.LoanShark.v1.exceptions.BadRequest;
 import com.loansharkmss.LoanShark.v1.exceptions.InternalServerError;
 import com.loansharkmss.LoanShark.v1.exceptions.NotFoundException;
 import com.loansharkmss.LoanShark.v1.model.User;
@@ -46,6 +47,14 @@ public class LoanSharkUserService implements UserService {
     }
 
     public User saveNewUser(User user) {
+        User existingUser = userRepository.findUserByEmail(user.getEmail());
+        if (existingUser != null)
+            throw new BadRequest("User with email " + user.getEmail() + " already exists");
+
+        existingUser = userRepository.findUserByUsername(user.getUsername());
+        if (existingUser != null)
+            throw new BadRequest("User with username " + user.getUsername() + " already exists");
+
         return userRepository.save(user);
     }
 
