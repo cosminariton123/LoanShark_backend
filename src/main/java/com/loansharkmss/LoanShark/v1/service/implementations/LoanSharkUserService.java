@@ -46,7 +46,7 @@ public class LoanSharkUserService implements UserService {
         return user;
     }
 
-    public User findUserByEmailOrUsername(String username_or_email) {
+    public User findUserByUsernameOrEmail(String username_or_email) {
         User user = userRepository.findUserByUsername(username_or_email);
 
         if (user == null)

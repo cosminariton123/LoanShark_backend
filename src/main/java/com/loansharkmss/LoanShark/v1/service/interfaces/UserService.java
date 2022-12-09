@@ -10,7 +10,7 @@ public interface UserService {
 
     public User findUserByUsername(String username);
 
-    public User findUserByEmailOrUsername(String username_or_email);
+    public User findUserByUsernameOrEmail(String username_or_email);
 
     public User saveNewUser(User user);
 
