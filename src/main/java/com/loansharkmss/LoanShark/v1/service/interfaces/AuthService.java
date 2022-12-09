@@ -15,6 +15,6 @@ public interface AuthService {
 
     public Boolean isJwtExpired(String jwt);
 
-    public String login(UserLogin);
+    public String login(UserLogin userLogin);
 
 }

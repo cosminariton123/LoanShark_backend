@@ -18,19 +18,15 @@ import javax.validation.Valid;
 @RestControllerV1
 @RequestMapping("/auth")
 public class AuthController {
-
-    private final UserService userService;
-
     private final AuthService authService;
 
-    public AuthController(UserService userService, AuthService authService) {
-        this.userService = userService;
+    public AuthController(AuthService authService) {
         this.authService = authService;
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> saveNewUser(@RequestBody @Valid UserLogin userLogin) {
-
+        String jwt = authService.login(userLogin);
         return ResponseEntity.ok().body(jwt);
     }
 

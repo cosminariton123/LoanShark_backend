@@ -7,6 +7,7 @@ import com.loansharkmss.LoanShark.v1.exceptions.Unauthorized;
 import com.loansharkmss.LoanShark.v1.model.User;
 import com.loansharkmss.LoanShark.v1.repository.UserRepository;
 import com.loansharkmss.LoanShark.v1.service.interfaces.AuthService;
+import com.loansharkmss.LoanShark.v1.util.PasswordEncryption;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,13 @@ import java.util.Date;
 @Service
 public class LoanSharkAuthService implements AuthService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public LoanSharkAuthService(UserRepository userRepository) {
+    private final PasswordEncryption passwordEncryption;
+
+    public LoanSharkAuthService(UserRepository userRepository, PasswordEncryption passwordEncryption) {
         this.userRepository = userRepository;
+        this.passwordEncryption = passwordEncryption;
     }
 
     public String generateJwt(User user) {
@@ -64,8 +68,11 @@ public class LoanSharkAuthService implements AuthService {
         if (user == null)
             throw new Unauthorized("Invalid Credentials");
 
-        if (userLogin // ENCRYPT)
+        if (!passwordEncryption.verifyIfMatches(userLogin.getPassword(), user.getPassword()))
+            throw new Unauthorized("Invalid Credentials");
 
-        String jwt = authService.generateJwt(user);
+        String jwt = generateJwt(user);
+
+        return jwt;
     }
 }
