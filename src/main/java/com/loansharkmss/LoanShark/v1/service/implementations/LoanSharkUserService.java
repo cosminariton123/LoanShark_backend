@@ -6,6 +6,7 @@ import com.loansharkmss.LoanShark.v1.exceptions.NotFoundException;
 import com.loansharkmss.LoanShark.v1.model.User;
 import com.loansharkmss.LoanShark.v1.repository.UserRepository;
 import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
+import com.loansharkmss.LoanShark.v1.util.PasswordEncryption;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,8 +16,11 @@ public class LoanSharkUserService implements UserService {
 
     UserRepository userRepository;
 
-    public LoanSharkUserService(UserRepository userRepository) {
+    PasswordEncryption passwordEncryption;
+
+    public LoanSharkUserService(UserRepository userRepository, PasswordEncryption passwordEncryption) {
         this.userRepository = userRepository;
+        this.passwordEncryption = passwordEncryption;
     }
 
     public User findUserById(Integer id) {
@@ -65,6 +69,8 @@ public class LoanSharkUserService implements UserService {
         existingUser = userRepository.findUserByUsername(user.getUsername());
         if (existingUser != null)
             throw new BadRequest("User with username " + user.getUsername() + " already exists");
+
+        user.setPassword(passwordEncryption.encryptPassword(user.getPassword()));
 
         return userRepository.save(user);
     }
