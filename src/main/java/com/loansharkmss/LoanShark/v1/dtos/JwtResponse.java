@@ -9,7 +9,7 @@ public class JwtResponse {
     }
 
     public String getJwt() {
-        return this.getJwt();
+        return jwt;
     }
 
 }
