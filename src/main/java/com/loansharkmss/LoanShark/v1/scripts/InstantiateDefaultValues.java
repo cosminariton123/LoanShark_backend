@@ -60,13 +60,6 @@ public class InstantiateDefaultValues {
              }
          }
 
-         System.out.println("COCO");
-         for (Role role : roles){
-             System.out.println(role.getName() + ": ");
-             for (Privilege privilege: role.getPrivileges()){
-                 System.out.println(privilege.getName() + " ");
-             }
-         }
         roleRepository.saveAll(roles);
 
         DefaultConfigFlag defaultConfigFlag1 = new DefaultConfigFlag();
