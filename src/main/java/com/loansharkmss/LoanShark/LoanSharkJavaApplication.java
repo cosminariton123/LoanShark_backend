@@ -1,26 +1,29 @@
 package com.loansharkmss.LoanShark;
+
+import com.loansharkmss.LoanShark.v1.scripts.InstantiateDefaultValues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
-public class LoanSharkJavaApplication implements CommandLineRunner {
+public class LoanSharkJavaApplication {
 
-	//<---Initialize beans for demo here--->
+	private final InstantiateDefaultValues instantiateDefaultValues;
 
-	//<---Initialize beans for demo here--->
+	public LoanSharkJavaApplication (InstantiateDefaultValues instantiateDefaultValues) {
+		this.instantiateDefaultValues = instantiateDefaultValues;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(LoanSharkJavaApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception{
-
-		//<---Add data for demo here--->
-
-		//<---Add data for demo here--->
-
+	@EventListener(ApplicationReadyEvent.class)
+	public void executeAtStartup() {
+		instantiateDefaultValues.instantiateDefaultValuesIfNotSet();
 	}
+
 }

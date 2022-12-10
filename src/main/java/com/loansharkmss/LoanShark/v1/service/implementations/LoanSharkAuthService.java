@@ -2,14 +2,16 @@ package com.loansharkmss.LoanShark.v1.service.implementations;
 
 import com.loansharkmss.LoanShark.v1.config.JwtConfig;
 import com.loansharkmss.LoanShark.v1.dtos.UserLogin;
-import com.loansharkmss.LoanShark.v1.exceptions.NotFoundException;
 import com.loansharkmss.LoanShark.v1.exceptions.Unauthorized;
 import com.loansharkmss.LoanShark.v1.model.User;
 import com.loansharkmss.LoanShark.v1.repository.UserRepository;
 import com.loansharkmss.LoanShark.v1.service.interfaces.AuthService;
-import com.loansharkmss.LoanShark.v1.util.PasswordEncryption;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -18,12 +20,12 @@ import java.util.Date;
 public class LoanSharkAuthService implements AuthService {
 
     private final UserRepository userRepository;
+    private final AuthenticationManager authenticationManager;
 
-    private final PasswordEncryption passwordEncryption;
-
-    public LoanSharkAuthService(UserRepository userRepository, PasswordEncryption passwordEncryption) {
+    //TODO(solve bug)
+    public LoanSharkAuthService(UserRepository userRepository, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
-        this.passwordEncryption = passwordEncryption;
+        this.authenticationManager = authenticationManager;
     }
 
     public String generateJwt(User user) {
@@ -32,17 +34,17 @@ public class LoanSharkAuthService implements AuthService {
 
         return Jwts.builder()
                 .setSubject("Authentication")
-                .setAudience(JwtConfig.audience)
-                .setIssuer(JwtConfig.domain)
+                .setAudience(JwtConfig.AUDIENCE)
+                .setIssuer(JwtConfig.DOMAIN)
                 .setIssuedAt(currentTime)
                 .setExpiration(expirationTime)
                 .setSubject(user.getUsername())
-                .signWith(JwtConfig.algorithm, JwtConfig.secret_key_for_jwt)
+                .signWith(JwtConfig.SIGNATURE_ALGORITHM, JwtConfig.SECRET_KEY_FOR_JWT)
                 .compact();
     }
 
     private Claims getAllClaimsFromJwt(String jwt) {
-        return Jwts.parser().setSigningKey(JwtConfig.secret_key_for_jwt).parseClaimsJws(jwt).getBody();
+        return Jwts.parser().setSigningKey(JwtConfig.SECRET_KEY_FOR_JWT).parseClaimsJws(jwt).getBody();
     }
 
     public String getUsernameFromJwt(String jwt) {
@@ -65,14 +67,21 @@ public class LoanSharkAuthService implements AuthService {
         if (user == null)
             user = userRepository.findUserByUsername(userLogin.getUsername_or_email());
 
-        if (user == null)
-            throw new Unauthorized("Invalid Credentials");
+        try {
+            if (user == null)
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.getUsername_or_email(), userLogin.getPassword()));
+            else
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), userLogin.getPassword()));
+        }
+        catch (DisabledException e) {
+            throw new Unauthorized("User disabled");
+        }
+        catch (BadCredentialsException e) {
+            throw new Unauthorized("Invalid credentials");
+        }
 
-        if (!passwordEncryption.verifyIfMatches(userLogin.getPassword(), user.getPassword()))
-            throw new Unauthorized("Invalid Credentials");
+        assert user != null;
 
-        String jwt = generateJwt(user);
-
-        return jwt;
+        return generateJwt(user);
     }
 }

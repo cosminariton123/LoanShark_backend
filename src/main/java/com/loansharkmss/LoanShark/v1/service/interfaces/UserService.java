@@ -1,19 +1,22 @@
 package com.loansharkmss.LoanShark.v1.service.interfaces;
 
 import com.loansharkmss.LoanShark.v1.model.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
-public interface UserService {
+@Service
+public interface UserService extends UserDetailsService {
 
-    public User findUserById(Integer id);
+    User loadUserById(Long id);
 
-    public  User findUserByEmail(String email);
+    User loadUserByEmail(String email);
 
-    public User findUserByUsername(String username);
+    User loadUserByUsername(String username);
 
-    public User findUserByUsernameOrEmail(String username_or_email);
+    User loadUserByUsernameOrEmail(String username_or_email);
 
-    public User saveNewUser(User user);
+    User saveNewUser(User user);
 
-    public User deleteUserById(Integer id);
+    User deleteUserById(Long id);
 
 }

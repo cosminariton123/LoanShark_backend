@@ -23,7 +23,7 @@ public class LoanSharkUserService implements UserService {
         this.passwordEncryption = passwordEncryption;
     }
 
-    public User findUserById(Integer id) {
+    public User loadUserById(Long id) {
         User user = userRepository.findUserById(id);
 
         if (user == null)
@@ -32,7 +32,7 @@ public class LoanSharkUserService implements UserService {
         return user;
     }
 
-    public User findUserByEmail(String email) {
+    public User loadUserByEmail(String email) {
         User user = userRepository.findUserByEmail(email);
 
         if (user == null)
@@ -41,7 +41,7 @@ public class LoanSharkUserService implements UserService {
         return user;
     }
 
-    public User findUserByUsername(String username) {
+    public User loadUserByUsername(String username) {
         User user = userRepository.findUserByUsername(username);
 
         if (user == null)
@@ -50,7 +50,7 @@ public class LoanSharkUserService implements UserService {
         return user;
     }
 
-    public User findUserByUsernameOrEmail(String username_or_email) {
+    public User loadUserByUsernameOrEmail(String username_or_email) {
         User user = userRepository.findUserByUsername(username_or_email);
 
         if (user == null)
@@ -76,8 +76,8 @@ public class LoanSharkUserService implements UserService {
     }
 
     @Transactional
-    public User deleteUserById(Integer id) {
-        User user = findUserById(id);
+    public User deleteUserById(Long id) {
+        User user = loadUserById(id);
         Integer deletedCount = userRepository.deleteUserById(id);
 
         if (deletedCount > 0)

@@ -43,14 +43,14 @@ public class JwtConfig {
         return audience;
     }
 
-    public static final String secret_key_for_jwt = get_secret_key();
+    public static final String SECRET_KEY_FOR_JWT = get_secret_key();
 
-    public static final String audience = get_audience();
+    public static final String AUDIENCE = get_audience();
 
-    public static final String domain = get_domain();
+    public static final String DOMAIN = get_domain();
 
-    public static final SignatureAlgorithm algorithm = SignatureAlgorithm.HS512;
+    public static final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
-    public static final Long JWT_VALIDITY = Long.valueOf(30 * 24 * 60 * 60 * 1000); // 30 days
+    public static final Long JWT_VALIDITY = 30L * 24 * 60 * 60 * 1000; // 30 days
 
 }

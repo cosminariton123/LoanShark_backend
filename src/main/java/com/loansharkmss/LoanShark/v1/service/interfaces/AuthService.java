@@ -2,19 +2,22 @@ package com.loansharkmss.LoanShark.v1.service.interfaces;
 
 import com.loansharkmss.LoanShark.v1.dtos.UserLogin;
 import com.loansharkmss.LoanShark.v1.model.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+@Service
 public interface AuthService {
 
-    public String generateJwt(User user);
+    String generateJwt(User user);
 
-    public String getUsernameFromJwt(String jwt);
+    String getUsernameFromJwt(String jwt);
 
-    public Date getExpirationDateFromJwt(String jwt);
+    Date getExpirationDateFromJwt(String jwt);
 
-    public Boolean isJwtExpired(String jwt);
-
-    public String login(UserLogin userLogin);
+    Boolean isJwtExpired(String jwt);
+    
+    String login(UserLogin userLogin);
 
 }
