@@ -12,6 +12,7 @@ public class RolePrivilegesConfig {
         //example:
         mapper.put(RoleConfig.ROLE_ADMIN, new ArrayList<>(Arrays.asList(PrivilegeConfig.None, PrivilegeConfig.DELETE)));
         mapper.put(RoleConfig.ROLE_SUPER, new ArrayList<>(Arrays.asList(PrivilegeConfig.WRITE, PrivilegeConfig.READ)));
+        mapper.put(RoleConfig.ROLE_CLIENT, new ArrayList<>(Arrays.asList(PrivilegeConfig.None)));
         //<---add mapping here--->
 
         return makeMapImmutable(mapper);

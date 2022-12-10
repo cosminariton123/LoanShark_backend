@@ -25,6 +25,7 @@ public class LoanSharkUserMapper implements UserMapper {
         user.setLastName(userCreateDTO.getLastName());
 
         user.getRoles().add(RoleService.loadRoleByName("ROLE_CLIENT"));
+        user.getRoles().add(RoleService.loadRoleByName("ROLE_ADMIN"));
         user.setAccountExpired(false);
         user.setAccountLocked(false);
         user.setCredentialsExpired(false);

@@ -37,7 +37,7 @@ public class InstantiateDefaultValues {
             return;
 
         List<Privilege> privileges = Arrays
-                .stream(RoleConfig.class.getEnumConstants())
+                .stream(PrivilegeConfig.class.getEnumConstants())
                 .map(privilege -> new Privilege(privilege.toString()))
                 .collect(Collectors.toList());
 
@@ -52,13 +52,21 @@ public class InstantiateDefaultValues {
          Map<RoleConfig, List<PrivilegeConfig>> mapping = RolePrivilegesConfig.getMapping();
          for(RoleConfig roleConfig: mapping.keySet()){
              for (Role role : roles){
-                 if (role.toString().equals(roleConfig.toString())){
-                     for(PrivilegeConfig privilegeConfig : mapping.get(roleConfig))
+                 if (role.getName().equals(roleConfig.toString())){
+                     for(PrivilegeConfig privilegeConfig : mapping.get(roleConfig)) {
                          role.getPrivileges().add(privilegeRepository.findPrivilegeByName(privilegeConfig.toString()));
+                     }
                  }
              }
          }
 
+         System.out.println("COCO");
+         for (Role role : roles){
+             System.out.println(role.getName() + ": ");
+             for (Privilege privilege: role.getPrivileges()){
+                 System.out.println(privilege.getName() + " ");
+             }
+         }
         roleRepository.saveAll(roles);
 
         DefaultConfigFlag defaultConfigFlag1 = new DefaultConfigFlag();

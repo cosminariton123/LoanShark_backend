@@ -22,7 +22,6 @@ public class LoanSharkAuthService implements AuthService {
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
 
-    //TODO(solve bug)
     public LoanSharkAuthService(UserRepository userRepository, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
