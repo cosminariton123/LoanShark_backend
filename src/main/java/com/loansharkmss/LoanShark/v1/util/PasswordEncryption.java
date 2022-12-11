@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PasswordEncryption {
 
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(EncryptionConfig.encryption_strength);
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(EncryptionConfig.ENCRYPTION_STRENGTH);
 
     public String encryptPassword(String password) {
         return encoder.encode(password);
