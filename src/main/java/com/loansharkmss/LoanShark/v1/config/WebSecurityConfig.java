@@ -1,6 +1,7 @@
 package com.loansharkmss.LoanShark.v1.config;
 
 import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,6 +41,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(EncryptionConfig.ENCRYPTION_STRENGTH);
     }
 
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
