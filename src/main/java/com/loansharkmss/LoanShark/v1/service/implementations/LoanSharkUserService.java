@@ -3,6 +3,7 @@ package com.loansharkmss.LoanShark.v1.service.implementations;
 import com.loansharkmss.LoanShark.v1.exceptions.BadRequest;
 import com.loansharkmss.LoanShark.v1.exceptions.InternalServerError;
 import com.loansharkmss.LoanShark.v1.exceptions.NotFoundException;
+import com.loansharkmss.LoanShark.v1.exceptions.Unauthorized;
 import com.loansharkmss.LoanShark.v1.model.User;
 import com.loansharkmss.LoanShark.v1.repository.UserRepository;
 import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
@@ -23,7 +24,7 @@ public class LoanSharkUserService implements UserService {
         this.passwordEncryption = passwordEncryption;
     }
 
-    public User loadUserById(Long id) {
+    public User findUserById(Long id) {
         User user = userRepository.findUserById(id);
 
         if (user == null)
@@ -32,7 +33,7 @@ public class LoanSharkUserService implements UserService {
         return user;
     }
 
-    public User loadUserByEmail(String email) {
+    public User findUserByEmail(String email) {
         User user = userRepository.findUserByEmail(email);
 
         if (user == null)
@@ -41,7 +42,7 @@ public class LoanSharkUserService implements UserService {
         return user;
     }
 
-    public User loadUserByUsername(String username) {
+    public User findUserByUsername(String username) {
         User user = userRepository.findUserByUsername(username);
 
         if (user == null)
@@ -50,7 +51,7 @@ public class LoanSharkUserService implements UserService {
         return user;
     }
 
-    public User loadUserByUsernameOrEmail(String username_or_email) {
+    public User findUserByUsernameOrEmail(String username_or_email) {
         User user = userRepository.findUserByUsername(username_or_email);
 
         if (user == null)
@@ -58,6 +59,17 @@ public class LoanSharkUserService implements UserService {
 
         if (user == null)
             throw new NotFoundException("User with username_or_email " + username_or_email + " not found");
+        return user;
+    }
+
+
+    //SPECIAL METHOD FOR SECURITY
+    public User loadUserByUsername(String username) {
+        User user = userRepository.findUserByUsername(username);
+
+        if (user == null)
+            throw new Unauthorized("Unauthorized");
+
         return user;
     }
 
@@ -77,7 +89,7 @@ public class LoanSharkUserService implements UserService {
 
     @Transactional
     public User deleteUserById(Long id) {
-        User user = loadUserById(id);
+        User user = findUserById(id);
         Integer deletedCount = userRepository.deleteUserById(id);
 
         if (deletedCount > 0)

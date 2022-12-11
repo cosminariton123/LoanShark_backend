@@ -17,16 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 
     private final UserService userService;
-    private final UserMapper userMapper;
 
-    public UserController(UserService userService, UserMapper userMapper) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userMapper = userMapper;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<User> findUserById(@PathVariable Long id) {
-        User user = userService.loadUserById(id);
+        User user = userService.findUserById(id);
         return ResponseEntity.ok().body(user);
     }
 
