@@ -1,6 +1,8 @@
 package com.loansharkmss.LoanShark.v1.dtos;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class UserCreateDTO {
 

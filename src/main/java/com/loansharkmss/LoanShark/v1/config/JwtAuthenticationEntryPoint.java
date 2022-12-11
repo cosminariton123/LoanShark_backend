@@ -1,6 +1,5 @@
 package com.loansharkmss.LoanShark.v1.config;
 
-import com.loansharkmss.LoanShark.v1.exceptions.Unauthorized;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;

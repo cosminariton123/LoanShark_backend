@@ -1,7 +1,6 @@
 package com.loansharkmss.LoanShark.v1.config;
 
 import com.loansharkmss.LoanShark.v1.model.User;
-import com.loansharkmss.LoanShark.v1.service.interfaces.AuthService;
 import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
 import com.loansharkmss.LoanShark.v1.util.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
