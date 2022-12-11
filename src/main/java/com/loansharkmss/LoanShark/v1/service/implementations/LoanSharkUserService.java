@@ -68,7 +68,7 @@ public class LoanSharkUserService implements UserService {
         User user = userRepository.findUserByUsername(username);
 
         if (user == null)
-            throw new Unauthorized("Unauthorized");
+            throw new Unauthorized("Invalid credentials");
 
         return user;
     }
