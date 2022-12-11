@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-public class UserCreateDTO {
+public class UserCreate {
 
     @NotNull(message = "email must not be null")
     @NotBlank(message = "email must not be blank")
