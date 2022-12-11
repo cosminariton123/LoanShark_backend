@@ -11,7 +11,7 @@ public class JwtConfig {
         String stored_secret_key = System.getenv("secret_key_for_jwt");
 
         if (stored_secret_key == null)
-            stored_secret_key = "default_abc";
+            stored_secret_key = "EL MUCHO GRANDE SECRETANDO";
 
         return stored_secret_key;
     }
