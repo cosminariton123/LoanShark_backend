@@ -29,13 +29,13 @@ public class LoanSharkAuthService implements AuthService {
 
 
     public String login(UserLogin userLogin) {
-        User user = userRepository.findUserByEmail(userLogin.getUsername_or_email());
+        User user = userRepository.findUserByEmail(userLogin.getUsernameOrEmail());
         if (user == null)
-            user = userRepository.findUserByUsername(userLogin.getUsername_or_email());
+            user = userRepository.findUserByUsername(userLogin.getUsernameOrEmail());
 
         try {
             if (user == null)
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.getUsername_or_email(), userLogin.getPassword()));
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLogin.getUsernameOrEmail(), userLogin.getPassword()));
             else
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), userLogin.getPassword()));
         }

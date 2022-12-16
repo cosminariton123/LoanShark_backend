@@ -2,16 +2,16 @@ package com.loansharkmss.LoanShark.v1.dtos;
 
 public class UserLogin {
 
-    private String username_or_email;
+    private String usernameOrEmail;
 
     private String password;
 
-    public String getUsername_or_email() {
-        return username_or_email;
+    public String getUsernameOrEmail() {
+        return usernameOrEmail;
     }
 
-    public void setUsername_or_email(String username_or_email) {
-        this.username_or_email = username_or_email;
+    public void setUsernameOrEmail(String usernameOrEmail) {
+        this.usernameOrEmail = usernameOrEmail;
     }
 
     public String getPassword() {
