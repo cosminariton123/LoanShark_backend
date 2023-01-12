@@ -33,7 +33,6 @@ public class User implements UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
-    @JsonIgnore
     private List<Role> roles = new ArrayList<>();
 
     @Column(name = "account_expired")
@@ -52,24 +51,13 @@ public class User implements UserDetails {
         return id;
     }
 
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
         roles
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .forEach(authorities::add);
-
-        Set<String> privileges = new HashSet<String>();
-
-        for (Role role : roles){
-            for (Privilege privilege: role.getPrivileges())
-                privileges.add(privilege.getName());
-        }
-
-        privileges
-                .stream()
-                .map(SimpleGrantedAuthority::new)
                 .forEach(authorities::add);
 
         return authorities;
