@@ -1,7 +1,6 @@
 package com.loansharkmss.LoanShark.v1.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,10 +10,6 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable
-    private List<Privilege> privileges = new ArrayList<>();
 
     @Column(name = "name", unique = true)
     private String name;
@@ -39,7 +34,4 @@ public class Role {
         this.name = name;
     }
 
-    public List<Privilege> getPrivileges() {
-        return privileges;
-    }
 }
