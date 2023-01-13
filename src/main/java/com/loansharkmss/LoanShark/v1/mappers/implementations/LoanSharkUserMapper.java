@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoanSharkUserMapper implements UserMapper {
 
-    private RoleService RoleService;
+    private final RoleService RoleService;
 
     public LoanSharkUserMapper (RoleService roleService) {
         this.RoleService = roleService;
