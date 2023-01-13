@@ -17,6 +17,8 @@ public class UserCreate {
 
     @NotNull(message = "password must not be null")
     @NotBlank(message = "password must not blank")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "Password must contain minimum eight characters, " +
+                                                                                    "at least one uppercase letter, one lowercase letter and one number")
     private String password;
 
     @NotNull(message = "firstName must not be null")
