@@ -1,7 +1,6 @@
 package com.loansharkmss.LoanShark.v1.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "roles")
@@ -9,7 +8,7 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "name", unique = true)
     private String name;
@@ -22,7 +21,7 @@ public class Role {
         this.name = name;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
