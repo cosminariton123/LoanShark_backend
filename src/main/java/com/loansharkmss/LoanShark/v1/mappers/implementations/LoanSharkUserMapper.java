@@ -15,7 +15,7 @@ public class LoanSharkUserMapper implements UserMapper {
         this.RoleService = roleService;
     }
 
-    public User UserCreateDTOToUser(UserCreate userCreate) {
+    public User UserCreateToUser(UserCreate userCreate) {
         User user = new User();
 
         user.setEmail(userCreate.getEmail());
