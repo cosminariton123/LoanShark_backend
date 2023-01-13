@@ -4,5 +4,5 @@ import com.loansharkmss.LoanShark.v1.dtos.UserCreate;
 import com.loansharkmss.LoanShark.v1.model.User;
 
 public interface UserMapper {
-    User UserCreateDTOToUser(UserCreate userCreate);
+    User UserCreateToUser(UserCreate userCreate);
 }

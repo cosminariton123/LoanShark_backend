@@ -41,7 +41,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<User> saveNewUser(@RequestBody @Valid UserCreate userCreate) {
-        User user = userMapper.UserCreateDTOToUser(userCreate);
+        User user = userMapper.UserCreateToUser(userCreate);
         User savedUser = userService.saveNewUser(user);
         return ResponseEntity.created(URI.create("/user/" + savedUser.getId())).body(savedUser);
     }
