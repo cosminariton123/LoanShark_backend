@@ -22,6 +22,7 @@ public class User implements UserDetails {
     @Column(name = "string_value", unique = true)
     private String username;
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
@@ -31,7 +32,7 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable
     private List<Role> roles = new ArrayList<>();
 
