@@ -64,11 +64,16 @@ public class LoanSharkUserService implements UserService {
 
 
     //SPECIAL METHOD FOR SECURITY
+    //transactional to permit lazy loading
+    @Transactional
     public User loadUserByUsername(String username) {
         User user = userRepository.findUserByUsername(username);
 
         if (user == null)
             throw new Unauthorized("Invalid credentials");
+
+        //lazy loading authorities
+        user.getAuthorities();
 
         return user;
     }
@@ -88,12 +93,12 @@ public class LoanSharkUserService implements UserService {
     }
 
     @Transactional
-    public User deleteUserById(Long id) {
-        User user = findUserById(id);
+    public void deleteUserById(Long id) {
+        findUserById(id);
         Integer deletedCount = userRepository.deleteUserById(id);
 
         if (deletedCount > 0)
-            return user;
+            return;
 
         throw new InternalServerError("Failed to delete user with id " + id);
     }
