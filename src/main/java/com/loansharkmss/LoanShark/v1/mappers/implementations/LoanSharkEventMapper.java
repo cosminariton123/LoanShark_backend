@@ -9,7 +9,6 @@ import com.loansharkmss.LoanShark.v1.model.Event;
 import com.loansharkmss.LoanShark.v1.model.User;
 import com.loansharkmss.LoanShark.v1.repository.EventRepository;
 import com.loansharkmss.LoanShark.v1.service.interfaces.DebtService;
-import com.loansharkmss.LoanShark.v1.service.interfaces.EventService;
 import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +23,7 @@ public class LoanSharkEventMapper implements EventMapper {
 
     private final DebtService debtService;
 
-    public LoanSharkEventMapper (EventRepository eventRepository, UserService userService, DebtService debtService) {
+    public LoanSharkEventMapper(EventRepository eventRepository, UserService userService, DebtService debtService) {
         this.eventRepository = eventRepository;
         this.userService = userService;
         this.debtService = debtService;
@@ -62,7 +61,7 @@ public class LoanSharkEventMapper implements EventMapper {
         }
         Long adminId = null;
         String adminUsername = null;
-        if (event.getAdmin() != null){
+        if (event.getAdmin() != null) {
             adminId = event.getAdmin().getId();
             adminUsername = event.getAdmin().getUsername();
         }

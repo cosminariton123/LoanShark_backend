@@ -13,7 +13,7 @@ public class Debt {
     private Long id;
 
     @Column(name = "value")
-    private Long value;
+    private Double value;
 
     @Column(name = "status")
     private DebtStatus debtStatus;
@@ -26,11 +26,11 @@ public class Debt {
         return id;
     }
 
-    public Long getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(Long value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
