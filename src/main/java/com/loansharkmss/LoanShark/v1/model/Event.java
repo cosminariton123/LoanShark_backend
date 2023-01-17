@@ -25,11 +25,14 @@ public class Event {
 
     @ManyToMany
     @JoinTable
-    private List<User> members = new ArrayList<>();
+    private final List<User> members = new ArrayList<>();
 
     @OneToMany
     @JoinTable
-    private List<Debt> debts = new ArrayList<>();
+    private final List<Debt> debts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "parentEvent")
+    private final List<Event> subEvents = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -65,5 +68,9 @@ public class Event {
 
     public void setAdmin(User admin) {
         this.admin = admin;
+    }
+
+    public List<Event> getSubEvents() {
+        return subEvents;
     }
 }

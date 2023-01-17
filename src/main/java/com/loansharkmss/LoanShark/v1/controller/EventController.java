@@ -1,6 +1,7 @@
 package com.loansharkmss.LoanShark.v1.controller;
 
 import com.loansharkmss.LoanShark.v1.config.RestControllerV1;
+import com.loansharkmss.LoanShark.v1.dtos.EventCard;
 import com.loansharkmss.LoanShark.v1.dtos.EventCreate;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.EventMapper;
 import com.loansharkmss.LoanShark.v1.model.Event;
@@ -27,9 +28,10 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Event> findEventById(@PathVariable Long id) {
+    public ResponseEntity<EventCard> findEventById(@PathVariable Long id) {
         Event event = eventService.findEventById(id);
-        return ResponseEntity.ok().body(event);
+        EventCard eventCard = eventMapper.EventToEventCard(event);
+        return ResponseEntity.ok().body(eventCard);
     }
 
     @PostMapping("/new")

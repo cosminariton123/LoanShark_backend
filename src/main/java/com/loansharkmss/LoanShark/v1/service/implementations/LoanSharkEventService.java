@@ -3,11 +3,13 @@ package com.loansharkmss.LoanShark.v1.service.implementations;
 import com.loansharkmss.LoanShark.v1.exceptions.InternalServerError;
 import com.loansharkmss.LoanShark.v1.exceptions.NotFoundException;
 import com.loansharkmss.LoanShark.v1.model.Event;
+import com.loansharkmss.LoanShark.v1.model.User;
 import com.loansharkmss.LoanShark.v1.repository.EventRepository;
 import com.loansharkmss.LoanShark.v1.service.interfaces.EventService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class LoanSharkEventService implements EventService {
@@ -23,6 +25,14 @@ public class LoanSharkEventService implements EventService {
 
         if (event == null)
             throw new NotFoundException("Event with id " + id + " not found");
+
+        return event;
+    }
+
+    public Event addMembersToEventWithId(Long Id, List<User> users) {
+        Event event = findEventById(Id);
+
+        event.getMembers().addAll(users);
 
         return event;
     }
