@@ -19,13 +19,25 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<User> findUserById(@PathVariable Long id) {
         User user = userService.findUserById(id);
         return ResponseEntity.ok().body(user);
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/username/{username}")
+    public ResponseEntity<User> findUserByUsername(@PathVariable String username) {
+        User user = userService.findUserByUsername(username);
+        return ResponseEntity.ok().body(user);
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> findUserByEmail(@PathVariable String email) {
+        User user = userService.findUserByEmail(email);
+        return ResponseEntity.ok(user);
+    }
+
+    @DeleteMapping("/id/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable Long id) {
         userService.deleteUserById(id);
         return ResponseEntity.ok().build();
