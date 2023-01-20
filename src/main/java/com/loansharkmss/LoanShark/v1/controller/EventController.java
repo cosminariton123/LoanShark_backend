@@ -3,6 +3,7 @@ package com.loansharkmss.LoanShark.v1.controller;
 import com.loansharkmss.LoanShark.v1.config.RestControllerV1;
 import com.loansharkmss.LoanShark.v1.dtos.EventCard;
 import com.loansharkmss.LoanShark.v1.dtos.EventCreate;
+import com.loansharkmss.LoanShark.v1.dtos.EventCreated;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.EventMapper;
 import com.loansharkmss.LoanShark.v1.model.Event;
 import com.loansharkmss.LoanShark.v1.service.interfaces.EventService;
@@ -35,10 +36,11 @@ public class EventController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Event> saveNewEvent(@RequestBody @Valid EventCreate eventCreate) {
+    public ResponseEntity<EventCreated> saveNewEvent(@RequestBody @Valid EventCreate eventCreate) {
         Event event = eventMapper.EventCreateToEvent(eventCreate);
         Event savedEvent = eventService.saveNewEvent(event);
-        return ResponseEntity.created(URI.create("/event/" + savedEvent.getId())).body(savedEvent);
+        EventCreated eventCreated = eventMapper.EventToEventCreated(savedEvent);
+        return ResponseEntity.created(URI.create("/event/" + savedEvent.getId())).body(eventCreated);
     }
 
 

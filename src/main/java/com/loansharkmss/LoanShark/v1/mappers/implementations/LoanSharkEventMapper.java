@@ -2,6 +2,7 @@ package com.loansharkmss.LoanShark.v1.mappers.implementations;
 
 import com.loansharkmss.LoanShark.v1.dtos.EventCard;
 import com.loansharkmss.LoanShark.v1.dtos.EventCreate;
+import com.loansharkmss.LoanShark.v1.dtos.EventCreated;
 import com.loansharkmss.LoanShark.v1.dtos.SubEventCard;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.EventMapper;
 import com.loansharkmss.LoanShark.v1.model.Debt;
@@ -50,6 +51,47 @@ public class LoanSharkEventMapper implements EventMapper {
         }
 
         return event;
+    }
+
+    public EventCreated EventToEventCreated(Event event) {
+        Long parentEventId = null;
+        Long adminId = null;
+
+        if (event.getParentEvent() != null)
+            parentEventId = event.getParentEvent().getId();
+
+        if (event.getAdmin() != null)
+            adminId = event.getAdmin().getId();
+
+        EventCreated eventCreated = new EventCreated(
+                event.getId(),
+                event.getName(),
+                parentEventId,
+                adminId
+        );
+
+        eventCreated.getMembersIds().addAll(
+                event.getMembers()
+                        .stream()
+                        .map(User::getId)
+                        .collect(Collectors.toList())
+        );
+
+        eventCreated.getDebtIds().addAll(
+                event.getDebts()
+                        .stream()
+                        .map(Debt::getId)
+                        .collect(Collectors.toList())
+        );
+
+        eventCreated.getSubEventsIds().addAll(
+                event.getSubEvents()
+                        .stream()
+                        .map(Event::getId)
+                        .collect(Collectors.toList())
+        );
+
+        return eventCreated;
     }
 
     public EventCard EventToEventCard(Event event) {
