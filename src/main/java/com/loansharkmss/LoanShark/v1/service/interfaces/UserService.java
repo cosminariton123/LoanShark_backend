@@ -4,6 +4,8 @@ import com.loansharkmss.LoanShark.v1.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface UserService extends UserDetailsService {
 
@@ -20,5 +22,9 @@ public interface UserService extends UserDetailsService {
     User saveNewUser(User user);
 
     void deleteUserById(Long id);
+
+    List<User> sendFriendRequests(Long userId, List<Long> friendsIds);
+
+    List<User> acceptFriendRequest(Long userId, Long friendRequestId);
 
 }
