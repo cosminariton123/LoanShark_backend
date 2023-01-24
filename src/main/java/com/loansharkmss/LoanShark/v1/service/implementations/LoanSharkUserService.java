@@ -121,6 +121,10 @@ public class LoanSharkUserService implements UserService {
                 .map(this::findUserById)
                 .collect(Collectors.toList());
 
+        for (User friend : friends)
+            if (friend.getId() == userId)
+                throw new BadRequest("Can't send friend request to self");
+
         for (User friend : friends) {
             friend.getPendingFriendRequests().add(user);
         }
@@ -132,9 +136,11 @@ public class LoanSharkUserService implements UserService {
         User user = findUserById(userId);
         User newFriend = findUserById(friendRequestId);
 
-        if (!user.getPendingFriendRequests().contains(newFriend)) {
+        if (user.getId() == newFriend.getId())
+            throw new BadRequest("Can't add self as friend");
+
+        if (!user.getPendingFriendRequests().contains(newFriend))
             throw new NotFoundException("User with id " + userId + " doesn't have a pending friend request from user with id " + newFriend.getId());
-        }
 
         user.getPendingFriendRequests().remove(newFriend);
         user.getFriends().add(newFriend);
