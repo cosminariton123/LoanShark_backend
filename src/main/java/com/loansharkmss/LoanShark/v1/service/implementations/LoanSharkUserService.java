@@ -11,6 +11,9 @@ import com.loansharkmss.LoanShark.v1.util.PasswordEncryption;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LoanSharkUserService implements UserService {
@@ -92,6 +95,14 @@ public class LoanSharkUserService implements UserService {
         return userRepository.save(user);
     }
 
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
+    public List<User> saveAll(List<User> users) {
+        return userRepository.saveAll(users);
+    }
+
     @Transactional
     public void deleteUserById(Long id) {
         findUserById(id);
@@ -102,5 +113,41 @@ public class LoanSharkUserService implements UserService {
 
         throw new InternalServerError("Failed to delete user with id " + id);
     }
+
+    public List<User> sendFriendRequests(Long userId, List<Long> friendsIds) {
+        User user = findUserById(userId);
+
+        List<User> friends = friendsIds.stream()
+                .map(this::findUserById)
+                .collect(Collectors.toList());
+
+        for (User friend : friends) {
+            friend.getPendingFriendRequests().add(user);
+        }
+
+        return saveAll(friends);
+    }
+
+    public List<User> acceptFriendRequest(Long userId, Long friendRequestId) {
+        User user = findUserById(userId);
+        User newFriend = findUserById(friendRequestId);
+
+        if (!user.getPendingFriendRequests().contains(newFriend)) {
+            throw new NotFoundException("User with id " + userId + " doesn't have a pending friend request from user with id " + newFriend.getId());
+        }
+
+        user.getPendingFriendRequests().remove(newFriend);
+        user.getFriends().add(newFriend);
+        newFriend.getFriends().add(user);
+
+        save(user);
+        save(newFriend);
+
+        List<User> users = new ArrayList<>();
+        users.add(user);
+        users.add(newFriend);
+        return users;
+    }
+
 
 }
