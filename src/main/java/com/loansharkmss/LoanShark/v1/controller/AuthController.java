@@ -36,13 +36,14 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@RequestBody @Valid UserLogin userLogin) {
         String jwt = authService.login(userLogin);
-        return ResponseEntity.ok().body(new JwtResponse(jwt));
+        return ResponseEntity.ok(new JwtResponse(jwt));
     }
 
     @PostMapping("/register")
     public ResponseEntity<User> saveNewUser(@RequestBody @Valid UserCreate userCreate) {
         User user = userMapper.UserCreateToUser(userCreate);
         User savedUser = userService.saveNewUser(user);
+        userService.sendFriendRequests(savedUser.getId(), userCreate.getFriendsIds());
         return ResponseEntity.created(URI.create("/user/" + savedUser.getId())).body(savedUser);
     }
 

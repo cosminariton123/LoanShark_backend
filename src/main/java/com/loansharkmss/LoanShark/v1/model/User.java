@@ -34,7 +34,15 @@ public class User implements UserDetails {
 
     @ManyToMany
     @JoinTable
-    private List<Role> roles = new ArrayList<>();
+    private final List<Role> roles = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable
+    private  final List<User> friends = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable
+    private final List<User> pendingFriendRequests = new ArrayList<>();
 
     @Column(name = "account_expired")
     private Boolean accountExpired;
@@ -62,6 +70,14 @@ public class User implements UserDetails {
                 .forEach(authorities::add);
 
         return authorities;
+    }
+
+    public List<User> getPendingFriendRequests() {
+        return pendingFriendRequests;
+    }
+
+    public List<User> getFriends() {
+        return friends;
     }
 
     public String getPassword() {
