@@ -1,18 +1,21 @@
 package com.loansharkmss.LoanShark.v1.controller;
 
 import com.loansharkmss.LoanShark.v1.config.RestControllerV1;
-import com.loansharkmss.LoanShark.v1.dtos.FriendIdsRequest;
+import com.loansharkmss.LoanShark.v1.dtos.UserFullListResponse;
+import com.loansharkmss.LoanShark.v1.dtos.UsersIdsRequest;
 import com.loansharkmss.LoanShark.v1.dtos.UserFull;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.UserMapper;
 import com.loansharkmss.LoanShark.v1.model.User;
 import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Validated
 @RestControllerV1
 @RequestMapping("/user")
 public class UserController {
@@ -54,17 +57,19 @@ public class UserController {
     }
 
     @PutMapping("/friends/request/{id}")
-    public ResponseEntity<List<UserFull>> sendFriendRequests(@PathVariable Long id, @RequestBody FriendIdsRequest friendsIds) {
-        List<User> updatedUsers = userService.sendFriendRequests(id, friendsIds.getFriendsIds());
+    public ResponseEntity<UserFullListResponse> sendFriendRequests(@PathVariable Long id, @RequestBody @Valid UsersIdsRequest friendsIds) {
+        List<User> updatedUsers = userService.sendFriendRequests(id, friendsIds.getUsersIds());
         List<UserFull> updatedUserFullList = updatedUsers.stream().map(userMapper::UserToUserFull).collect(Collectors.toList());
-        return ResponseEntity.ok(updatedUserFullList);
+        UserFullListResponse updatedUserFullListResponse = userMapper.UserFullListToUserFullListResponse(updatedUserFullList);
+        return ResponseEntity.ok(updatedUserFullListResponse);
     }
 
     @PutMapping("/friends/request/{id}/accept/{idAcceptedFriend}")
-    public ResponseEntity<List<UserFull>> acceptFriendRequest(@PathVariable Long id, @PathVariable Long idAcceptedFriend) {
+    public ResponseEntity<UserFullListResponse> acceptFriendRequest(@PathVariable Long id, @PathVariable Long idAcceptedFriend) {
         List<User> updatedUsers = userService.acceptFriendRequest(id, idAcceptedFriend);
         List<UserFull> updatedUserFullList = updatedUsers.stream().map(userMapper::UserToUserFull).collect(Collectors.toList());
-        return ResponseEntity.ok(updatedUserFullList);
+        UserFullListResponse updatedUserFullListResponse = userMapper.UserFullListToUserFullListResponse(updatedUserFullList);
+        return ResponseEntity.ok(updatedUserFullListResponse);
     }
 
 }

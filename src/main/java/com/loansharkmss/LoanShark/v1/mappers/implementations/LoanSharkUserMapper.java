@@ -2,6 +2,7 @@ package com.loansharkmss.LoanShark.v1.mappers.implementations;
 
 import com.loansharkmss.LoanShark.v1.dtos.UserCreate;
 import com.loansharkmss.LoanShark.v1.dtos.UserFull;
+import com.loansharkmss.LoanShark.v1.dtos.UserFullListResponse;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.UserMapper;
 import com.loansharkmss.LoanShark.v1.model.Role;
 import com.loansharkmss.LoanShark.v1.model.User;
@@ -9,6 +10,7 @@ import com.loansharkmss.LoanShark.v1.service.interfaces.RoleService;
 import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -56,5 +58,9 @@ public class LoanSharkUserMapper implements UserMapper {
         userFull.getPendingFriendRequestsUsersIds().addAll(user.getPendingFriendRequests().stream().map(User::getId).collect(Collectors.toList()));
 
         return userFull;
+    }
+
+    public UserFullListResponse UserFullListToUserFullListResponse(List<UserFull> userFullList) {
+        return new UserFullListResponse(userFullList);
     }
 }
