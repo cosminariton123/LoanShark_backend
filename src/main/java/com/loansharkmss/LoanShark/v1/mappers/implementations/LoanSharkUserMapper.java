@@ -5,7 +5,6 @@ import com.loansharkmss.LoanShark.v1.mappers.interfaces.UserMapper;
 import com.loansharkmss.LoanShark.v1.model.Role;
 import com.loansharkmss.LoanShark.v1.model.User;
 import com.loansharkmss.LoanShark.v1.service.interfaces.RoleService;
-import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -62,8 +61,8 @@ public class LoanSharkUserMapper implements UserMapper {
         return new UserFullListResponse(userFullList);
     }
 
-    public UserMinimal UserToUserMinimal(User user) {
-         return new UserMinimal(
+    public UserMinimalCard UserToUserMinimal(User user) {
+         return new UserMinimalCard(
                 user.getId(),
                 user.getUsername(),
                 user.getFirstName(),
@@ -71,7 +70,7 @@ public class LoanSharkUserMapper implements UserMapper {
         );
     }
 
-    public UserMinimalListResponse UserMinimalListToUserMinimalListResponse(List<UserMinimal> userMinimalList) {
-        return new UserMinimalListResponse(userMinimalList);
+    public UserMinimalCardListResponse UserMinimalListToUserMinimalListResponse(List<UserMinimalCard> userMinimalCardList) {
+        return new UserMinimalCardListResponse(userMinimalCardList);
     }
 }

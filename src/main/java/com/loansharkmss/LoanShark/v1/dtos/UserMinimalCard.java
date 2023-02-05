@@ -1,6 +1,6 @@
 package com.loansharkmss.LoanShark.v1.dtos;
 
-public class UserMinimal {
+public class UserMinimalCard {
 
     private final Long id;
 
@@ -10,7 +10,7 @@ public class UserMinimal {
 
     private final String lastName;
 
-    public UserMinimal(Long id, String username, String firstName, String lastName) {
+    public UserMinimalCard(Long id, String username, String firstName, String lastName) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
