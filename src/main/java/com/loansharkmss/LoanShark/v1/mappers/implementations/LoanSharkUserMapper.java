@@ -47,9 +47,9 @@ public class LoanSharkUserMapper implements UserMapper {
                 user.getUsername(),
                 user.getFirstName(),
                 user.getLastName(),
-                !user.isAccountNonExpired(),
-                !user.isAccountNonLocked(),
-                !user.isCredentialsNonExpired(),
+                user.isAccountNonExpired(),
+                user.isAccountNonLocked(),
+                user.isCredentialsNonExpired(),
                 user.isEnabled()
         );
 
