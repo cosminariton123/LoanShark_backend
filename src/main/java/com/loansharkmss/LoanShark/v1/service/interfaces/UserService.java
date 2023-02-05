@@ -27,4 +27,6 @@ public interface UserService extends UserDetailsService {
 
     List<User> acceptFriendRequest(Long userId, Long friendRequestId);
 
+    List<User> findAllFriendsForUserWithId(Long userId);
+
 }
