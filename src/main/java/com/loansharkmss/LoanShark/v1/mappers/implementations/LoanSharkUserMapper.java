@@ -1,8 +1,6 @@
 package com.loansharkmss.LoanShark.v1.mappers.implementations;
 
-import com.loansharkmss.LoanShark.v1.dtos.UserCreate;
-import com.loansharkmss.LoanShark.v1.dtos.UserFull;
-import com.loansharkmss.LoanShark.v1.dtos.UserFullListResponse;
+import com.loansharkmss.LoanShark.v1.dtos.*;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.UserMapper;
 import com.loansharkmss.LoanShark.v1.model.Role;
 import com.loansharkmss.LoanShark.v1.model.User;
@@ -62,5 +60,18 @@ public class LoanSharkUserMapper implements UserMapper {
 
     public UserFullListResponse UserFullListToUserFullListResponse(List<UserFull> userFullList) {
         return new UserFullListResponse(userFullList);
+    }
+
+    public UserMinimal UserToUserMinimal(User user) {
+         return new UserMinimal(
+                user.getId(),
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName()
+        );
+    }
+
+    public UserMinimalListResponse UserMinimalListToUserMinimalListResponse(List<UserMinimal> userMinimalList) {
+        return new UserMinimalListResponse(userMinimalList);
     }
 }

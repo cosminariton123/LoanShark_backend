@@ -163,5 +163,8 @@ public class LoanSharkUserService implements UserService {
         return users;
     }
 
-
+    public List<User> findAllFriendsForUserWithId(Long userId) {
+        User user = findUserById(userId);
+        return user.getFriends();
+    }
 }

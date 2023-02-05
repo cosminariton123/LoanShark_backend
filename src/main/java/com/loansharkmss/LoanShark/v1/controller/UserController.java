@@ -1,9 +1,7 @@
 package com.loansharkmss.LoanShark.v1.controller;
 
 import com.loansharkmss.LoanShark.v1.config.RestControllerV1;
-import com.loansharkmss.LoanShark.v1.dtos.UserFullListResponse;
-import com.loansharkmss.LoanShark.v1.dtos.UsersIdsRequest;
-import com.loansharkmss.LoanShark.v1.dtos.UserFull;
+import com.loansharkmss.LoanShark.v1.dtos.*;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.UserMapper;
 import com.loansharkmss.LoanShark.v1.model.User;
 import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
@@ -70,6 +68,14 @@ public class UserController {
         List<UserFull> updatedUserFullList = updatedUsers.stream().map(userMapper::UserToUserFull).collect(Collectors.toList());
         UserFullListResponse updatedUserFullListResponse = userMapper.UserFullListToUserFullListResponse(updatedUserFullList);
         return ResponseEntity.ok(updatedUserFullListResponse);
+    }
+
+    @GetMapping("/friends/{id}")
+    public ResponseEntity<UserMinimalListResponse> findAllFriends(@PathVariable Long id) {
+       List<User> users = userService.findAllFriendsForUserWithId(id);
+       List<UserMinimal> userMinimalList = users.stream().map(userMapper::UserToUserMinimal).collect(Collectors.toList());
+       UserMinimalListResponse userMinimalListResponse = userMapper.UserMinimalListToUserMinimalListResponse(userMinimalList);
+       return ResponseEntity.ok(userMinimalListResponse);
     }
 
 }
