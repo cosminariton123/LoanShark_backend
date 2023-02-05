@@ -3,6 +3,7 @@ package com.loansharkmss.LoanShark.v1.controller;
 import com.loansharkmss.LoanShark.v1.config.RestControllerV1;
 import com.loansharkmss.LoanShark.v1.dtos.JwtResponse;
 import com.loansharkmss.LoanShark.v1.dtos.UserCreate;
+import com.loansharkmss.LoanShark.v1.dtos.UserFull;
 import com.loansharkmss.LoanShark.v1.dtos.UserLogin;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.UserMapper;
 import com.loansharkmss.LoanShark.v1.model.User;
@@ -40,11 +41,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> saveNewUser(@RequestBody @Valid UserCreate userCreate) {
+    public ResponseEntity<UserFull> saveNewUser(@RequestBody @Valid UserCreate userCreate) {
         User user = userMapper.UserCreateToUser(userCreate);
         User savedUser = userService.saveNewUser(user);
+        UserFull userFull = userMapper.UserToUserFull(savedUser);
         userService.sendFriendRequests(savedUser.getId(), userCreate.getFriendsIds());
-        return ResponseEntity.created(URI.create("/user/" + savedUser.getId())).body(savedUser);
+        return ResponseEntity.created(URI.create("/user/" + savedUser.getId())).body(userFull);
     }
 
 }

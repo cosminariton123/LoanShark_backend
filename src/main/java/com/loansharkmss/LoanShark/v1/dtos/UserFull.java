@@ -21,23 +21,23 @@ public class UserFull {
 
     private final List<Long> pendingFriendRequestsUsersIds = new ArrayList<>();
 
-    private final Boolean accountExpired;
+    private final Boolean accountNonExpired;
 
-    private final Boolean accountLocked;
+    private final Boolean accountNonLocked;
 
-    private final Boolean credentialsExpired;
+    private final Boolean credentialsNonExpired;
 
     private final Boolean enabled;
 
-    public UserFull(Long id, String email, String username, String firstName, String lastName, Boolean accountExpired, Boolean accountLocked, Boolean credentialsExpired, Boolean enabled) {
+    public UserFull(Long id, String email, String username, String firstName, String lastName, Boolean accountNonExpired, Boolean accountNonLocked, Boolean credentialsNonExpired, Boolean enabled) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.accountExpired = accountExpired;
-        this.accountLocked = accountLocked;
-        this.credentialsExpired = credentialsExpired;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
         this.enabled = enabled;
     }
 
@@ -73,16 +73,16 @@ public class UserFull {
         return pendingFriendRequestsUsersIds;
     }
 
-    public Boolean getAccountExpired() {
-        return accountExpired;
+    public Boolean getAccountNonExpired() {
+        return accountNonExpired;
     }
 
-    public Boolean getAccountLocked() {
-        return accountLocked;
+    public Boolean getAccountNonLocked() {
+        return accountNonLocked;
     }
 
-    public Boolean getCredentialsExpired() {
-        return credentialsExpired;
+    public Boolean getCredentialsNonExpired() {
+        return credentialsNonExpired;
     }
 
     public Boolean getEnabled() {
