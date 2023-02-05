@@ -125,6 +125,10 @@ public class LoanSharkUserService implements UserService {
             if (friend.getId() == userId)
                 throw new BadRequest("Can't send friend request to self");
 
+        for (User friend : friends)
+            if (friend.getPendingFriendRequests().contains(user))
+                throw new BadRequest("User with id " + friend.getId() + " already has a pending friend request from user with id " + user.getId());
+
         for (User friend : friends) {
             friend.getPendingFriendRequests().add(user);
         }
@@ -138,6 +142,10 @@ public class LoanSharkUserService implements UserService {
 
         if (user.getId() == newFriend.getId())
             throw new BadRequest("Can't add self as friend");
+
+        if (user.getFriends().contains(newFriend))
+            throw new BadRequest("User with id " + newFriend.getId() + "already in users with id " + user.getId() + " friends list\n" +
+                    "Note that this message should be impossible to reach meaning that there is a bug server side");
 
         if (!user.getPendingFriendRequests().contains(newFriend))
             throw new NotFoundException("User with id " + userId + " doesn't have a pending friend request from user with id " + newFriend.getId());
