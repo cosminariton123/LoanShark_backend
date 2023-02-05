@@ -12,7 +12,7 @@ public interface UserMapper {
 
     UserFullListResponse UserFullListToUserFullListResponse(List<UserFull> userFullList);
 
-    UserMinimal UserToUserMinimal(User user);
+    UserMinimalCard UserToUserMinimal(User user);
 
-    UserMinimalListResponse UserMinimalListToUserMinimalListResponse(List<UserMinimal> userMinimalList);
+    UserMinimalCardListResponse UserMinimalListToUserMinimalListResponse(List<UserMinimalCard> userMinimalCardList);
 }

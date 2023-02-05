@@ -71,11 +71,11 @@ public class UserController {
     }
 
     @GetMapping("/friends/{id}")
-    public ResponseEntity<UserMinimalListResponse> findAllFriends(@PathVariable Long id) {
+    public ResponseEntity<UserMinimalCardListResponse> findAllFriends(@PathVariable Long id) {
        List<User> users = userService.findAllFriendsForUserWithId(id);
-       List<UserMinimal> userMinimalList = users.stream().map(userMapper::UserToUserMinimal).collect(Collectors.toList());
-       UserMinimalListResponse userMinimalListResponse = userMapper.UserMinimalListToUserMinimalListResponse(userMinimalList);
-       return ResponseEntity.ok(userMinimalListResponse);
+       List<UserMinimalCard> userMinimalCardList = users.stream().map(userMapper::UserToUserMinimal).collect(Collectors.toList());
+       UserMinimalCardListResponse userMinimalCardListResponse = userMapper.UserMinimalListToUserMinimalListResponse(userMinimalCardList);
+       return ResponseEntity.ok(userMinimalCardListResponse);
     }
 
 }
