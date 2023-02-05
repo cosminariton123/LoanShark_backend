@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -116,6 +118,10 @@ public class LoanSharkUserService implements UserService {
 
     public List<User> sendFriendRequests(Long userId, List<Long> friendsIds) {
         User user = findUserById(userId);
+
+        Set<Long> friendsIdsSet = new HashSet<>(friendsIds);
+        if (friendsIdsSet.size() != friendsIds.size())
+            throw new BadRequest("UserIds list has duplicates");
 
         List<User> friends = friendsIds.stream()
                 .map(this::findUserById)
