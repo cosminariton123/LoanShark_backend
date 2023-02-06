@@ -36,6 +36,7 @@ public class LoanSharkUserMapper implements UserMapper {
         user.setPassword(userCreate.getPassword());
         user.setFirstName(userCreate.getFirstName());
         user.setLastName(userCreate.getLastName());
+        user.setDescription(userCreate.getDescription());
 
         user.setImage(imageService.findImageById(ImageConfig.DEFAULT_PROFILE_IMAGE_ID));
         user.getRoles().add(roleService.loadRoleByName("ROLE_CLIENT"));
@@ -59,6 +60,7 @@ public class LoanSharkUserMapper implements UserMapper {
                 user.getUsername(),
                 user.getFirstName(),
                 user.getLastName(),
+                user.getDescription(),
                 imageId,
                 user.isAccountNonExpired(),
                 user.isAccountNonLocked(),

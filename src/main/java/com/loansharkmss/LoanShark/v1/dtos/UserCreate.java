@@ -31,14 +31,16 @@ public class UserCreate {
     @NotBlank(message = "lastName must not be blank")
     private final String lastName;
 
-    private final List<Long> friendsIds = new ArrayList<>();
+    @NotNull(message = "description must not be null(can be blank).")
+    private final String description;
 
-    public UserCreate(String email, String username, String password, String firstName, String lastName) {
+    public UserCreate(String email, String username, String password, String firstName, String lastName, String description) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.description = description;
     }
 
     public String getEmail() {
@@ -61,7 +63,7 @@ public class UserCreate {
         return lastName;
     }
 
-    public List<Long> getFriendsIds() {
-        return friendsIds;
+    public String getDescription() {
+        return description;
     }
 }
