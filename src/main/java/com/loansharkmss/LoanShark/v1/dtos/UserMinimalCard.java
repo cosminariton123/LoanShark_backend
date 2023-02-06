@@ -10,11 +10,18 @@ public class UserMinimalCard {
 
     private final String lastName;
 
-    public UserMinimalCard(Long id, String username, String firstName, String lastName) {
+    private final ImageCard image;
+
+    public UserMinimalCard(Long id, String username, String firstName, String lastName, ImageCard image) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.image = image;
+    }
+
+    public ImageCard getImage() {
+        return image;
     }
 
     public Long getId() {

@@ -1,9 +1,12 @@
 package com.loansharkmss.LoanShark.v1.mappers.implementations;
 
+import com.loansharkmss.LoanShark.v1.config.ImageConfig;
 import com.loansharkmss.LoanShark.v1.dtos.*;
+import com.loansharkmss.LoanShark.v1.mappers.interfaces.ImageMapper;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.UserMapper;
 import com.loansharkmss.LoanShark.v1.model.Role;
 import com.loansharkmss.LoanShark.v1.model.User;
+import com.loansharkmss.LoanShark.v1.service.interfaces.ImageService;
 import com.loansharkmss.LoanShark.v1.service.interfaces.RoleService;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +18,14 @@ public class LoanSharkUserMapper implements UserMapper {
 
     private final RoleService roleService;
 
-    public LoanSharkUserMapper (RoleService roleService) {
+    private final ImageService imageService;
+
+    private final ImageMapper imageMapper;
+
+    public LoanSharkUserMapper (RoleService roleService, ImageService imageService, ImageMapper imageMapper) {
         this.roleService = roleService;
+        this.imageService = imageService;
+        this.imageMapper = imageMapper;
     }
 
     public User UserCreateToUser(UserCreate userCreate) {
@@ -28,6 +37,7 @@ public class LoanSharkUserMapper implements UserMapper {
         user.setFirstName(userCreate.getFirstName());
         user.setLastName(userCreate.getLastName());
 
+        user.setImage(imageService.findImageById(ImageConfig.DEFAULT_PROFILE_IMAGE_ID));
         user.getRoles().add(roleService.loadRoleByName("ROLE_CLIENT"));
         user.setAccountExpired(false);
         user.setAccountLocked(false);
@@ -38,19 +48,25 @@ public class LoanSharkUserMapper implements UserMapper {
     }
 
     public UserFull UserToUserFull(User user) {
+        Long imageId = null;
+
+        if (user.getImage() != null)
+            imageId = user.getImage().getId();
+
         UserFull userFull = new UserFull(
                 user.getId(),
                 user.getEmail(),
                 user.getUsername(),
                 user.getFirstName(),
                 user.getLastName(),
+                imageId,
                 user.isAccountNonExpired(),
                 user.isAccountNonLocked(),
                 user.isCredentialsNonExpired(),
                 user.isEnabled()
         );
 
-        userFull.getRoles().addAll(user.getRoles().stream().map(Role::getId).collect(Collectors.toList()));
+        userFull.getRolesIds().addAll(user.getRoles().stream().map(Role::getId).collect(Collectors.toList()));
         userFull.getFriendsIds().addAll(user.getFriends().stream().map(User::getId).collect(Collectors.toList()));
         userFull.getPendingFriendRequestsUsersIds().addAll(user.getPendingFriendRequests().stream().map(User::getId).collect(Collectors.toList()));
 
@@ -62,11 +78,14 @@ public class LoanSharkUserMapper implements UserMapper {
     }
 
     public UserMinimalCard UserToUserMinimal(User user) {
+        ImageCard imageCard = imageMapper.ImageToImageCard(user.getImage());
+
          return new UserMinimalCard(
                 user.getId(),
                 user.getUsername(),
                 user.getFirstName(),
-                user.getLastName()
+                user.getLastName(),
+                imageCard
         );
     }
 

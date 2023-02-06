@@ -1,11 +1,14 @@
 package com.loansharkmss.LoanShark.v1.service.implementations;
 
+import com.loansharkmss.LoanShark.v1.config.ImageConfig;
 import com.loansharkmss.LoanShark.v1.exceptions.BadRequest;
 import com.loansharkmss.LoanShark.v1.exceptions.InternalServerError;
 import com.loansharkmss.LoanShark.v1.exceptions.NotFoundException;
 import com.loansharkmss.LoanShark.v1.exceptions.Unauthorized;
+import com.loansharkmss.LoanShark.v1.model.Image;
 import com.loansharkmss.LoanShark.v1.model.User;
 import com.loansharkmss.LoanShark.v1.repository.UserRepository;
+import com.loansharkmss.LoanShark.v1.service.interfaces.ImageService;
 import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
 import com.loansharkmss.LoanShark.v1.util.PasswordEncryption;
 import org.springframework.stereotype.Service;
@@ -20,13 +23,16 @@ import java.util.stream.Collectors;
 @Service
 public class LoanSharkUserService implements UserService {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    PasswordEncryption passwordEncryption;
+    private final PasswordEncryption passwordEncryption;
 
-    public LoanSharkUserService(UserRepository userRepository, PasswordEncryption passwordEncryption) {
+    private final ImageService imageService;
+
+    public LoanSharkUserService(UserRepository userRepository, PasswordEncryption passwordEncryption, ImageService imageService) {
         this.userRepository = userRepository;
         this.passwordEncryption = passwordEncryption;
+        this.imageService = imageService;
     }
 
     public User findUserById(Long id) {
@@ -172,5 +178,25 @@ public class LoanSharkUserService implements UserService {
     public List<User> findAllFriendsForUserWithId(Long userId) {
         User user = findUserById(userId);
         return user.getFriends();
+    }
+
+    @Transactional
+    public User updateUserImage(Long userId, Image image) {
+        User user = findUserById(userId);
+
+        if (user.getImage() != null){
+            Long oldImageId = user.getImage().getId();
+
+            user.setImage(null);
+            save(user);
+
+            if (oldImageId != ImageConfig.DEFAULT_PROFILE_IMAGE_ID)
+                imageService.deleteImageById(oldImageId);
+        }
+
+        Image savedImage = imageService.saveNewImage(image);
+        user.setImage(savedImage);
+
+        return save(user);
     }
 }

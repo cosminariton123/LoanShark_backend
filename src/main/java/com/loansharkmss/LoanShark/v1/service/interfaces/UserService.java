@@ -1,5 +1,6 @@
 package com.loansharkmss.LoanShark.v1.service.interfaces;
 
+import com.loansharkmss.LoanShark.v1.model.Image;
 import com.loansharkmss.LoanShark.v1.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,7 @@ public interface UserService extends UserDetailsService {
     List<User> acceptFriendRequest(Long userId, Long friendRequestId);
 
     List<User> findAllFriendsForUserWithId(Long userId);
+
+    User updateUserImage(Long userId, Image image);
 
 }

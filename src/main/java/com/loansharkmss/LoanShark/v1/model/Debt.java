@@ -12,14 +12,14 @@ public class Debt {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "value")
+    @Column(name = "value", nullable = false)
     private Double value;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private DebtStatus debtStatus;
 
     @ManyToOne
-    @JoinColumn(name = "debtor")
+    @JoinColumn(name = "debtor", nullable = false)
     private User debtor;
 
     public Long getId() {

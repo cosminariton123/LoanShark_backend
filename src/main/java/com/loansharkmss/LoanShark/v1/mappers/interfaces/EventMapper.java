@@ -10,7 +10,7 @@ public interface EventMapper {
 
     Event EventCreateToEvent(EventCreate eventCreate);
 
-    public EventCreated EventToEventCreated(Event event);
+    EventCreated EventToEventCreated(Event event);
 
     EventCard EventToEventCard(Event event);
 
