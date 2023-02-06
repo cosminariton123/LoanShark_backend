@@ -77,6 +77,13 @@ public class UserController {
         return ResponseEntity.ok(updatedUserFullListResponse);
     }
 
+    @PutMapping("/friends/request/{id}/decline/{idDeclinedFriend}")
+    public ResponseEntity<UserFull> declineFriendRequest(@PathVariable Long id, @PathVariable Long idDeclinedFriend) {
+        User updatedUser = userService.declineFriendRequest(id, idDeclinedFriend);
+        UserFull updatedUserFull = userMapper.UserToUserFull(updatedUser);
+        return ResponseEntity.ok(updatedUserFull);
+    }
+
     @GetMapping("/friends/{id}")
     public ResponseEntity<UserMinimalCardListResponse> findAllFriends(@PathVariable Long id) {
        List<User> users = userService.findAllFriendsForUserWithId(id);

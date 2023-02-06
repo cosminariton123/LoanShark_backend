@@ -28,6 +28,8 @@ public interface UserService extends UserDetailsService {
 
     List<User> acceptFriendRequest(Long userId, Long friendRequestId);
 
+    User declineFriendRequest(Long userId, Long friendRequestId);
+
     List<User> findAllFriendsForUserWithId(Long userId);
 
     User updateUserImage(Long userId, Image image);
