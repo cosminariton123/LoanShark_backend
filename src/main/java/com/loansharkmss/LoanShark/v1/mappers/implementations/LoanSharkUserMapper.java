@@ -94,4 +94,17 @@ public class LoanSharkUserMapper implements UserMapper {
     public UserMinimalCardListResponse UserMinimalListToUserMinimalListResponse(List<UserMinimalCard> userMinimalCardList) {
         return new UserMinimalCardListResponse(userMinimalCardList);
     }
+
+    public UserProfileCard UserToUserProfileCard(User user) {
+        ImageCard imageCard = imageMapper.ImageToImageCard(user.getImage());
+
+        return new UserProfileCard(
+              user.getId(),
+              user.getUsername(),
+              user.getFirstName(),
+              user.getLastName(),
+              user.getDescription(),
+                imageCard
+        );
+    }
 }
