@@ -175,6 +175,19 @@ public class LoanSharkUserService implements UserService {
         return users;
     }
 
+    public User declineFriendRequest(Long userId, Long friendRequestId) {
+        User user = findUserById(userId);
+        User declinedFriend = findUserById(friendRequestId);
+
+        if (user.getPendingFriendRequests().contains(declinedFriend))
+            user.getPendingFriendRequests().remove(declinedFriend);
+        else
+            throw new BadRequest("User with id " + userId + " doesn't have a friend request from user with id " + friendRequestId);
+
+        save(user);
+        return user;
+    }
+
     public List<User> findAllFriendsForUserWithId(Long userId) {
         User user = findUserById(userId);
         return user.getFriends();
