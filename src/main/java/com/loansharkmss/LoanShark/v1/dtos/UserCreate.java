@@ -1,5 +1,7 @@
 package com.loansharkmss.LoanShark.v1.dtos;
 
+import com.loansharkmss.LoanShark.v1.model.Image;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -31,14 +33,22 @@ public class UserCreate {
     @NotBlank(message = "lastName must not be blank")
     private final String lastName;
 
+    private final Image image;
+
     private final List<Long> friendsIds = new ArrayList<>();
 
-    public UserCreate(String email, String username, String password, String firstName, String lastName) {
+
+    public UserCreate(String email, String username, String password, String firstName, String lastName, Image image) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.image = image;
+    }
+
+    public Image getImage() {
+        return image;
     }
 
     public String getEmail() {

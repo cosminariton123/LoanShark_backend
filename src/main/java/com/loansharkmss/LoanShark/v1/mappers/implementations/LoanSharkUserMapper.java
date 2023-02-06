@@ -38,19 +38,25 @@ public class LoanSharkUserMapper implements UserMapper {
     }
 
     public UserFull UserToUserFull(User user) {
+        Long imageId = null;
+
+        if (user.getImage() != null)
+            imageId = user.getImage().getId();
+
         UserFull userFull = new UserFull(
                 user.getId(),
                 user.getEmail(),
                 user.getUsername(),
                 user.getFirstName(),
                 user.getLastName(),
+                imageId,
                 user.isAccountNonExpired(),
                 user.isAccountNonLocked(),
                 user.isCredentialsNonExpired(),
                 user.isEnabled()
         );
 
-        userFull.getRoles().addAll(user.getRoles().stream().map(Role::getId).collect(Collectors.toList()));
+        userFull.getRolesIds().addAll(user.getRoles().stream().map(Role::getId).collect(Collectors.toList()));
         userFull.getFriendsIds().addAll(user.getFriends().stream().map(User::getId).collect(Collectors.toList()));
         userFull.getPendingFriendRequestsUsersIds().addAll(user.getPendingFriendRequests().stream().map(User::getId).collect(Collectors.toList()));
 
@@ -66,7 +72,8 @@ public class LoanSharkUserMapper implements UserMapper {
                 user.getId(),
                 user.getUsername(),
                 user.getFirstName(),
-                user.getLastName()
+                user.getLastName(),
+                 user.getImage()
         );
     }
 

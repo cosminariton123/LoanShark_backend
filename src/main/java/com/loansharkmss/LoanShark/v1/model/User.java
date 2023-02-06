@@ -32,6 +32,9 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Image image;
+
     @ManyToMany
     @JoinTable
     private final List<Role> roles = new ArrayList<>();
@@ -70,6 +73,14 @@ public class User implements UserDetails {
                 .forEach(authorities::add);
 
         return authorities;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public Image getImage() {
+        return image;
     }
 
     public List<User> getPendingFriendRequests() {

@@ -2,12 +2,16 @@ package com.loansharkmss.LoanShark.v1.controller;
 
 import com.loansharkmss.LoanShark.v1.config.RestControllerV1;
 import com.loansharkmss.LoanShark.v1.dtos.*;
+import com.loansharkmss.LoanShark.v1.mappers.interfaces.ImageMapper;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.UserMapper;
+import com.loansharkmss.LoanShark.v1.model.Image;
 import com.loansharkmss.LoanShark.v1.model.User;
+import com.loansharkmss.LoanShark.v1.service.interfaces.ImageService;
 import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -22,9 +26,12 @@ public class UserController {
 
     private final UserMapper userMapper;
 
-    public UserController(UserService userService, UserMapper userMapper) {
+    private final ImageMapper imageMapper;
+
+    public UserController(UserService userService, UserMapper userMapper, ImageMapper imageMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
+        this.imageMapper = imageMapper;
     }
 
     @GetMapping("/id/{id}")
@@ -76,6 +83,14 @@ public class UserController {
        List<UserMinimalCard> userMinimalCardList = users.stream().map(userMapper::UserToUserMinimal).collect(Collectors.toList());
        UserMinimalCardListResponse userMinimalCardListResponse = userMapper.UserMinimalListToUserMinimalListResponse(userMinimalCardList);
        return ResponseEntity.ok(userMinimalCardListResponse);
+    }
+
+    @PutMapping("/set/profile/picture/{userid}")
+    public ResponseEntity<UserMinimalCard> updateUserImage(@PathVariable Long userid, @RequestParam(name = "image") MultipartFile multipartFile) {
+        Image image = imageMapper.MultiPartToImage(multipartFile);
+        User user = userService.updateUserImage(userid, image);
+        UserMinimalCard userMinimalCard = userMapper.UserToUserMinimal(user);
+        return ResponseEntity.ok(userMinimalCard);
     }
 
 }

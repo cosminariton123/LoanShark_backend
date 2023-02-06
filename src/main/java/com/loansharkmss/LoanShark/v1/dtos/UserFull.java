@@ -15,7 +15,9 @@ public class UserFull {
 
     private final String lastName;
 
-    private final List<Long> roles = new ArrayList<>();
+    private final Long imageId;
+
+    private final List<Long> rolesIds = new ArrayList<>();
 
     private final List<Long> friendsIds = new ArrayList<>();
 
@@ -29,16 +31,21 @@ public class UserFull {
 
     private final Boolean enabled;
 
-    public UserFull(Long id, String email, String username, String firstName, String lastName, Boolean accountNonExpired, Boolean accountNonLocked, Boolean credentialsNonExpired, Boolean enabled) {
+    public UserFull(Long id, String email, String username, String firstName, String lastName, Long imageId, Boolean accountNonExpired, Boolean accountNonLocked, Boolean credentialsNonExpired, Boolean enabled) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.imageId = imageId;
         this.accountNonExpired = accountNonExpired;
         this.accountNonLocked = accountNonLocked;
         this.credentialsNonExpired = credentialsNonExpired;
         this.enabled = enabled;
+    }
+
+    public Long getImageId() {
+        return imageId;
     }
 
     public Long getId() {
@@ -61,8 +68,8 @@ public class UserFull {
         return lastName;
     }
 
-    public List<Long> getRoles() {
-        return roles;
+    public List<Long> getRolesIds() {
+        return rolesIds;
     }
 
     public List<Long> getFriendsIds() {
