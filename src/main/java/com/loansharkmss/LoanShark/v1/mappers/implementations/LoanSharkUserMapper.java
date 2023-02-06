@@ -1,9 +1,13 @@
 package com.loansharkmss.LoanShark.v1.mappers.implementations;
 
+import com.loansharkmss.LoanShark.v1.config.DefaultImagesConfig;
 import com.loansharkmss.LoanShark.v1.dtos.*;
+import com.loansharkmss.LoanShark.v1.mappers.interfaces.ImageMapper;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.UserMapper;
+import com.loansharkmss.LoanShark.v1.model.Image;
 import com.loansharkmss.LoanShark.v1.model.Role;
 import com.loansharkmss.LoanShark.v1.model.User;
+import com.loansharkmss.LoanShark.v1.service.interfaces.ImageService;
 import com.loansharkmss.LoanShark.v1.service.interfaces.RoleService;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +19,14 @@ public class LoanSharkUserMapper implements UserMapper {
 
     private final RoleService roleService;
 
-    public LoanSharkUserMapper (RoleService roleService) {
+    private final ImageService imageService;
+
+    private final ImageMapper imageMapper;
+
+    public LoanSharkUserMapper (RoleService roleService, ImageService imageService, ImageMapper imageMapper) {
         this.roleService = roleService;
+        this.imageService = imageService;
+        this.imageMapper = imageMapper;
     }
 
     public User UserCreateToUser(UserCreate userCreate) {
@@ -28,6 +38,7 @@ public class LoanSharkUserMapper implements UserMapper {
         user.setFirstName(userCreate.getFirstName());
         user.setLastName(userCreate.getLastName());
 
+        user.setImage(imageService.findImageById(DefaultImagesConfig.DEFAULT_PROFILE_IMAGE_ID));
         user.getRoles().add(roleService.loadRoleByName("ROLE_CLIENT"));
         user.setAccountExpired(false);
         user.setAccountLocked(false);
@@ -68,12 +79,14 @@ public class LoanSharkUserMapper implements UserMapper {
     }
 
     public UserMinimalCard UserToUserMinimal(User user) {
+        ImageCard imageCard = imageMapper.ImageToImageCard(user.getImage());
+
          return new UserMinimalCard(
                 user.getId(),
                 user.getUsername(),
                 user.getFirstName(),
                 user.getLastName(),
-                 user.getImage()
+                imageCard
         );
     }
 

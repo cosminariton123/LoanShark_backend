@@ -1,5 +1,6 @@
 package com.loansharkmss.LoanShark.v1.mappers.implementations;
 
+import com.loansharkmss.LoanShark.v1.dtos.ImageCard;
 import com.loansharkmss.LoanShark.v1.exceptions.BadRequest;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.ImageMapper;
 import com.loansharkmss.LoanShark.v1.model.Image;
@@ -24,5 +25,14 @@ public class LoanSharkImageMapper implements ImageMapper {
             e.printStackTrace();
             throw new BadRequest("Can't read provided data. Please try again!");
         }
+    }
+
+    public ImageCard ImageToImageCard(Image image) {
+        return new ImageCard(
+                image.getId(),
+                image.getName(),
+                image.getType(),
+                image.getData()
+        );
     }
 }

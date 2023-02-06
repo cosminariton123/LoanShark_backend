@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 
+import java.io.IOException;
+
 @SpringBootApplication
 public class LoanSharkJavaApplication {
 
@@ -20,7 +22,7 @@ public class LoanSharkJavaApplication {
 	}
 
 	@EventListener(ApplicationReadyEvent.class)
-	public void executeAtStartup() {
+	public void executeAtStartup() throws IOException {
 		instantiateDefaultValues.instantiateDefaultValuesIfNotSet();
 	}
 

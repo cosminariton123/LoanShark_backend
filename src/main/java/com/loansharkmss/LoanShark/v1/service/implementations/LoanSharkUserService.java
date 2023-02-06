@@ -1,5 +1,6 @@
 package com.loansharkmss.LoanShark.v1.service.implementations;
 
+import com.loansharkmss.LoanShark.v1.config.DefaultImagesConfig;
 import com.loansharkmss.LoanShark.v1.exceptions.BadRequest;
 import com.loansharkmss.LoanShark.v1.exceptions.InternalServerError;
 import com.loansharkmss.LoanShark.v1.exceptions.NotFoundException;
@@ -189,7 +190,8 @@ public class LoanSharkUserService implements UserService {
             user.setImage(null);
             save(user);
 
-            imageService.deleteImageById(oldImageId);
+            if (oldImageId != DefaultImagesConfig.DEFAULT_PROFILE_IMAGE_ID)
+                imageService.deleteImageById(oldImageId);
         }
 
         Image savedImage = imageService.saveNewImage(image);

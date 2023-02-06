@@ -1,7 +1,5 @@
 package com.loansharkmss.LoanShark.v1.dtos;
 
-import com.loansharkmss.LoanShark.v1.model.Image;
-
 public class UserMinimalCard {
 
     private final Long id;
@@ -12,9 +10,9 @@ public class UserMinimalCard {
 
     private final String lastName;
 
-    private final Image image;
+    private final ImageCard image;
 
-    public UserMinimalCard(Long id, String username, String firstName, String lastName, Image image) {
+    public UserMinimalCard(Long id, String username, String firstName, String lastName, ImageCard image) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
@@ -22,7 +20,7 @@ public class UserMinimalCard {
         this.image = image;
     }
 
-    public Image getImage() {
+    public ImageCard getImage() {
         return image;
     }
 
