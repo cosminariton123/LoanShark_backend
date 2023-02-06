@@ -141,6 +141,10 @@ public class LoanSharkUserService implements UserService {
             if (friend.getPendingFriendRequests().contains(user))
                 throw new BadRequest("User with id " + friend.getId() + " already has a pending friend request from user with id " + user.getId());
 
+        for (User friend : friends)
+            if (user.getFriends().contains(friend))
+                throw new BadRequest("User with id " + user.getId() + " is already a friend with user with id " + friend.getId());
+
         for (User friend : friends) {
             friend.getPendingFriendRequests().add(user);
         }
