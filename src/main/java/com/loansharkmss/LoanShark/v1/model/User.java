@@ -32,6 +32,9 @@ public class User implements UserDetails {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @Column(name = "description", nullable = false)
+    private String description;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Image image;
 
@@ -165,5 +168,13 @@ public class User implements UserDetails {
 
     public List<Role> getRoles() {
         return roles;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -45,7 +45,6 @@ public class AuthController {
         User user = userMapper.UserCreateToUser(userCreate);
         User savedUser = userService.saveNewUser(user);
         UserFull userFull = userMapper.UserToUserFull(savedUser);
-        userService.sendFriendRequests(savedUser.getId(), userCreate.getFriendsIds());
         return ResponseEntity.created(URI.create("/user/" + savedUser.getId())).body(userFull);
     }
 
