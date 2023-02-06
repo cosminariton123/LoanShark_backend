@@ -100,4 +100,11 @@ public class UserController {
         return ResponseEntity.ok(userMinimalCard);
     }
 
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<UserProfileCard> findUserProfile(@PathVariable Long id) {
+        User user = userService.findUserById(id);
+        UserProfileCard userProfileCard = userMapper.UserToUserProfileCard(user);
+        return ResponseEntity.ok(userProfileCard);
+    }
+
 }
