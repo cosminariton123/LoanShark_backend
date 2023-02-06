@@ -2,6 +2,7 @@ package com.loansharkmss.LoanShark.v1.service.implementations;
 
 import com.loansharkmss.LoanShark.v1.exceptions.InternalServerError;
 import com.loansharkmss.LoanShark.v1.exceptions.NotFoundException;
+import com.loansharkmss.LoanShark.v1.exceptions.UnsupportedMediaType;
 import com.loansharkmss.LoanShark.v1.model.Image;
 import com.loansharkmss.LoanShark.v1.repository.ImageRepository;
 import com.loansharkmss.LoanShark.v1.service.interfaces.ImageService;
@@ -26,6 +27,10 @@ public class LoanSharkImageService implements ImageService {
     }
 
     public Image saveNewImage(Image image) {
+
+        if(!image.getType().split("/")[0].equals("image"))
+            throw new UnsupportedMediaType("Only image types allowed. Type uploaded is " + image.getType());
+
         return imageRepository.save(image);
     }
 

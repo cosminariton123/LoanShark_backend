@@ -1,10 +1,9 @@
 package com.loansharkmss.LoanShark.v1.mappers.implementations;
 
-import com.loansharkmss.LoanShark.v1.config.DefaultImagesConfig;
+import com.loansharkmss.LoanShark.v1.config.ImageConfig;
 import com.loansharkmss.LoanShark.v1.dtos.*;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.ImageMapper;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.UserMapper;
-import com.loansharkmss.LoanShark.v1.model.Image;
 import com.loansharkmss.LoanShark.v1.model.Role;
 import com.loansharkmss.LoanShark.v1.model.User;
 import com.loansharkmss.LoanShark.v1.service.interfaces.ImageService;
@@ -38,7 +37,7 @@ public class LoanSharkUserMapper implements UserMapper {
         user.setFirstName(userCreate.getFirstName());
         user.setLastName(userCreate.getLastName());
 
-        user.setImage(imageService.findImageById(DefaultImagesConfig.DEFAULT_PROFILE_IMAGE_ID));
+        user.setImage(imageService.findImageById(ImageConfig.DEFAULT_PROFILE_IMAGE_ID));
         user.getRoles().add(roleService.loadRoleByName("ROLE_CLIENT"));
         user.setAccountExpired(false);
         user.setAccountLocked(false);

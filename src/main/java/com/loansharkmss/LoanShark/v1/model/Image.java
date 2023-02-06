@@ -1,5 +1,7 @@
 package com.loansharkmss.LoanShark.v1.model;
 
+import com.loansharkmss.LoanShark.v1.config.ImageConfig;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,7 @@ public class Image {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "data", length = 50000000, nullable = false)
+    @Column(name = "data", length = ImageConfig.MAX_IMAGE_SIZE_IN_BYTES, nullable = false)
     private byte[] data;
 
     public Long getId() {

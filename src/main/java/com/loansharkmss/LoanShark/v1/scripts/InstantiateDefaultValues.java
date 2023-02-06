@@ -2,7 +2,7 @@ package com.loansharkmss.LoanShark.v1.scripts;
 
 import com.loansharkmss.LoanShark.config.DefaultConfigFlag;
 import com.loansharkmss.LoanShark.config.DefaultConfigFlagRepository;
-import com.loansharkmss.LoanShark.v1.config.DefaultImagesConfig;
+import com.loansharkmss.LoanShark.v1.config.ImageConfig;
 import com.loansharkmss.LoanShark.v1.config.RoleConfig;
 import com.loansharkmss.LoanShark.v1.model.Image;
 import com.loansharkmss.LoanShark.v1.model.Role;
@@ -10,8 +10,6 @@ import com.loansharkmss.LoanShark.v1.repository.ImageRepository;
 import com.loansharkmss.LoanShark.v1.repository.RoleRepository;
 import org.springframework.stereotype.Component;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -57,18 +55,21 @@ public class InstantiateDefaultValues {
 
     public void instantiateDefaultProfileImage() throws IOException {
 
-        File file = new File(DefaultImagesConfig.DEFAULT_PROFILE_IMAGE_PATH);
+        File file = new File(ImageConfig.DEFAULT_PROFILE_IMAGE_PATH);
 
         FileInputStream fileInputStream = new FileInputStream(file);
 
         byte[] data = new byte[(int)file.length()];
 
+        if (file.length() > ImageConfig.MAX_IMAGE_SIZE_IN_BYTES)
+            throw new RuntimeException("Maximum image size is set to " + ImageConfig.MAX_IMAGE_SIZE_IN_BYTES + " bytes. Around " + ImageConfig.MAX_IMAGE_SIZE_IN_BYTES / 1000000 + " MB");
+
         fileInputStream.read(data);
 
         fileInputStream.close();
 
-        String imageName = DefaultImagesConfig.DEFAULT_PROFILE_IMAGE_PATH.substring(
-                DefaultImagesConfig.DEFAULT_PROFILE_IMAGE_PATH.lastIndexOf("/") + 1);
+        String imageName = ImageConfig.DEFAULT_PROFILE_IMAGE_PATH.substring(
+                ImageConfig.DEFAULT_PROFILE_IMAGE_PATH.lastIndexOf("/") + 1);
 
         Image image = new Image(
                 imageName,
