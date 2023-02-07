@@ -1,9 +1,6 @@
 package com.loansharkmss.LoanShark.v1.mappers.implementations;
 
-import com.loansharkmss.LoanShark.v1.dtos.EventCard;
-import com.loansharkmss.LoanShark.v1.dtos.EventCreate;
-import com.loansharkmss.LoanShark.v1.dtos.EventCreated;
-import com.loansharkmss.LoanShark.v1.dtos.SubEventCard;
+import com.loansharkmss.LoanShark.v1.dtos.*;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.EventMapper;
 import com.loansharkmss.LoanShark.v1.model.Debt;
 import com.loansharkmss.LoanShark.v1.model.Event;
@@ -13,6 +10,7 @@ import com.loansharkmss.LoanShark.v1.service.interfaces.DebtService;
 import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -146,4 +144,7 @@ public class LoanSharkEventMapper implements EventMapper {
                 event.getMembers().size());
     }
 
+    public EventCardListResponse EventCardListToEventCardListResponse(List<EventCard> eventCardList) {
+        return new EventCardListResponse(eventCardList);
+    }
 }

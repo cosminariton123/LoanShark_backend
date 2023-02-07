@@ -10,9 +10,9 @@ import com.loansharkmss.LoanShark.v1.service.interfaces.EventService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class LoanSharkEventService implements EventService {
@@ -76,6 +76,18 @@ public class LoanSharkEventService implements EventService {
 
         if (doesMembersListContainDuplicates(event))
             throw new BadRequest("Member list contains duplicates");
+    }
+
+
+    public List<Event> findEventsWhereUserIsAdminOrMemberAndEventIsRoot(User user) {
+        List<Event> eventsWhereUserIsAdmin = eventRepository.findEventsByAdminAndParentEventNull(user);
+        List<Event> eventsWhereUserIsMember = eventRepository.findEventsByMembersContainsAndParentEventNull(user);
+
+        List<Event> eventsWhereUserIsAdminOrMember = new ArrayList<>();
+        eventsWhereUserIsAdminOrMember.addAll(eventsWhereUserIsAdmin);
+        eventsWhereUserIsAdminOrMember.addAll(eventsWhereUserIsMember);
+
+        return eventsWhereUserIsAdminOrMember;
     }
 
 }

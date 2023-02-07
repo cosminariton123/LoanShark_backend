@@ -1,10 +1,9 @@
 package com.loansharkmss.LoanShark.v1.mappers.interfaces;
 
-import com.loansharkmss.LoanShark.v1.dtos.EventCard;
-import com.loansharkmss.LoanShark.v1.dtos.EventCreate;
-import com.loansharkmss.LoanShark.v1.dtos.EventCreated;
-import com.loansharkmss.LoanShark.v1.dtos.SubEventCard;
+import com.loansharkmss.LoanShark.v1.dtos.*;
 import com.loansharkmss.LoanShark.v1.model.Event;
+
+import java.util.List;
 
 public interface EventMapper {
 
@@ -15,5 +14,7 @@ public interface EventMapper {
     EventCard EventToEventCard(Event event);
 
     SubEventCard EventToSubEventCard (Event event);
+
+    EventCardListResponse EventCardListToEventCardListResponse(List<EventCard> eventCardList);
 
 }
