@@ -32,6 +32,15 @@ public class LoanSharkEventService implements EventService {
         return event;
     }
 
+    public Event findSubEventById(Long id) {
+        Event event = eventRepository.findEventByIdAndParentEventNotNull(id);
+
+        if (event == null)
+            throw new NotFoundException("SubEvent with id " + id + " not found");
+
+        return event;
+    }
+
     public Event addMembersToEventWithId(Long Id, List<User> users) {
         Event event = findEventById(Id);
 

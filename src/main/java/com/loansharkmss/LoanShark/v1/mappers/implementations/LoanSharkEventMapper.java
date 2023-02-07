@@ -2,6 +2,7 @@ package com.loansharkmss.LoanShark.v1.mappers.implementations;
 
 import com.loansharkmss.LoanShark.v1.dtos.*;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.EventMapper;
+import com.loansharkmss.LoanShark.v1.mappers.interfaces.UserMapper;
 import com.loansharkmss.LoanShark.v1.model.Debt;
 import com.loansharkmss.LoanShark.v1.model.Event;
 import com.loansharkmss.LoanShark.v1.model.User;
@@ -22,10 +23,13 @@ public class LoanSharkEventMapper implements EventMapper {
 
     private final DebtService debtService;
 
-    public LoanSharkEventMapper(EventRepository eventRepository, UserService userService, DebtService debtService) {
+    private final UserMapper userMapper;
+
+    public LoanSharkEventMapper(EventRepository eventRepository, UserService userService, DebtService debtService, UserMapper userMapper) {
         this.eventRepository = eventRepository;
         this.userService = userService;
         this.debtService = debtService;
+        this.userMapper = userMapper;
     }
 
     public Event EventCreateToEvent(EventCreate eventCreate) {
@@ -146,5 +150,14 @@ public class LoanSharkEventMapper implements EventMapper {
 
     public EventCardListResponse EventCardListToEventCardListResponse(List<EventCard> eventCardList) {
         return new EventCardListResponse(eventCardList);
+    }
+
+    public MushSubEventCard EventToMushSubEventCard(Event event) {
+        return  new MushSubEventCard(
+                event.getName(),
+                event.getDescription(),
+                userMapper.UserToUserMinimalCardNoImage(event.getAdmin()),
+                event.getMembers().stream().map(userMapper::UserToUserMinimalCardNoImage).collect(Collectors.toList())
+        );
     }
 }
