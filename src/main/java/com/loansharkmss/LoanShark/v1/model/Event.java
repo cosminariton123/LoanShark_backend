@@ -15,6 +15,9 @@ public class Event {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "description", nullable = false)
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "parent_id", nullable = true)
     private Event parentEvent;
@@ -36,6 +39,14 @@ public class Event {
 
     public Long getId() {
         return id;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public List<User> getMembers() {

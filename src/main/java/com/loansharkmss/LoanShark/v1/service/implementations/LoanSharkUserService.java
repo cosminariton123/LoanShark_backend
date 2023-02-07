@@ -125,8 +125,7 @@ public class LoanSharkUserService implements UserService {
     public List<User> sendFriendRequests(Long userId, List<Long> friendsIds) {
         User user = findUserById(userId);
 
-        Set<Long> friendsIdsSet = new HashSet<>(friendsIds);
-        if (friendsIdsSet.size() != friendsIds.size())
+        if (new HashSet<>(friendsIds).size() != friendsIds.size())
             throw new BadRequest("UserIds list has duplicates");
 
         List<User> friends = friendsIds.stream()

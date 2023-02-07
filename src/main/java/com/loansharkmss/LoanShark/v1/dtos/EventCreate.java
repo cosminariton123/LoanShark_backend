@@ -1,16 +1,22 @@
 package com.loansharkmss.LoanShark.v1.dtos;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EventCreate {
 
+    @NotNull(message = "name must not be null")
+    @NotEmpty(message = "name must not be empty")
     private String name;
+
+    @NotNull(message = "description must not be null(can be empty)")
+    private String description;
 
     private Long parentEventId;
 
-    @NotNull
+    @NotNull(message = "adminId must not be null")
     private Long adminId;
 
 
@@ -24,6 +30,14 @@ public class EventCreate {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getParentEventId() {

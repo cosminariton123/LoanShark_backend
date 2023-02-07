@@ -9,6 +9,8 @@ public class EventCard {
 
     private final String name;
 
+    private final String description;
+
     private final Long parentEventId;
 
     private final String parentEventName;
@@ -21,9 +23,10 @@ public class EventCard {
 
     private final List<SubEventCard> subEventCards = new ArrayList<>();
 
-    public EventCard(Long id, String name, Long parentEventId, String parentEventName, Long adminId, String adminUsername) {
+    public EventCard(Long id, String name, String description, Long parentEventId, String parentEventName, Long adminId, String adminUsername) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.parentEventId = parentEventId;
         this.parentEventName = parentEventName;
         this.adminId = adminId;
@@ -36,6 +39,10 @@ public class EventCard {
 
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Long getParentEventId() {
