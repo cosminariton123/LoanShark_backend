@@ -93,8 +93,8 @@ public class UserController {
     }
 
     @PutMapping("/set/profile/picture/{userid}")
-    public ResponseEntity<UserMinimalCard> updateUserImage(@PathVariable Long userid, @RequestParam(name = "image") MultipartFile multipartFile) {
-        Image image = imageMapper.MultiPartToImage(multipartFile);
+    public ResponseEntity<UserMinimalCard> updateUserImage(@PathVariable Long userid, @RequestBody ImageCreateRequest imageCreateRequest) {
+        Image image = imageMapper.ImageCreateRequestToImage(imageCreateRequest);
         User user = userService.updateUserImage(userid, image);
         UserMinimalCard userMinimalCard = userMapper.UserToUserMinimal(user);
         return ResponseEntity.ok(userMinimalCard);

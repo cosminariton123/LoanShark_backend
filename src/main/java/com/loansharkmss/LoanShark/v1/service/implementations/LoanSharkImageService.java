@@ -27,9 +27,9 @@ public class LoanSharkImageService implements ImageService {
     }
 
     public Image saveNewImage(Image image) {
-
-        if(!image.getType().split("/")[0].equals("image"))
-            throw new UnsupportedMediaType("Only image types allowed. Type uploaded is " + image.getType());
+        //TODO("Uncomment when FE finishes development")
+        //if (!checkIfSupportedMediaType(image))
+            //throw new UnsupportedMediaType("Only image types allowed. Type uploaded is " + image.getType());
 
         return imageRepository.save(image);
     }
@@ -42,5 +42,12 @@ public class LoanSharkImageService implements ImageService {
             return;
 
         throw new InternalServerError("Failed to delete user with id " + id);
+    }
+
+    private Boolean checkIfSupportedMediaType(Image image) {
+        if(!image.getType().split("/")[0].equals("image"))
+            return Boolean.FALSE;
+
+        return Boolean.TRUE;
     }
 }

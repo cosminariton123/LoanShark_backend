@@ -1,6 +1,7 @@
 package com.loansharkmss.LoanShark.v1.mappers.implementations;
 
 import com.loansharkmss.LoanShark.v1.dtos.ImageCard;
+import com.loansharkmss.LoanShark.v1.dtos.ImageCreateRequest;
 import com.loansharkmss.LoanShark.v1.exceptions.BadRequest;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.ImageMapper;
 import com.loansharkmss.LoanShark.v1.model.Image;
@@ -27,11 +28,16 @@ public class LoanSharkImageMapper implements ImageMapper {
         }
     }
 
+    public Image ImageCreateRequestToImage(ImageCreateRequest imageCreateRequest) {
+        return new Image(
+                "Untitled",
+                "Unknown",
+                imageCreateRequest.getData()
+        );
+    }
+
     public ImageCard ImageToImageCard(Image image) {
         return new ImageCard(
-                image.getId(),
-                image.getName(),
-                image.getType(),
                 image.getData()
         );
     }
