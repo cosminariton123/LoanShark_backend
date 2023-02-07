@@ -1,5 +1,6 @@
 package com.loansharkmss.LoanShark.v1.service.implementations;
 
+import com.loansharkmss.LoanShark.v1.exceptions.BadRequest;
 import com.loansharkmss.LoanShark.v1.exceptions.InternalServerError;
 import com.loansharkmss.LoanShark.v1.exceptions.NotFoundException;
 import com.loansharkmss.LoanShark.v1.model.Event;
@@ -9,7 +10,9 @@ import com.loansharkmss.LoanShark.v1.service.interfaces.EventService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class LoanSharkEventService implements EventService {
@@ -38,6 +41,7 @@ public class LoanSharkEventService implements EventService {
     }
 
     public Event saveNewEvent(Event event) {
+        validateMembersList(event);
         return eventRepository.save(event);
     }
 
@@ -50,6 +54,28 @@ public class LoanSharkEventService implements EventService {
             return;
 
         throw new InternalServerError("Failed to delete event with id " + id);
+    }
+
+    private Boolean isAdminInMembersList(Event event) {
+        if (event.getMembers().contains(event.getAdmin()))
+            return Boolean.TRUE;
+
+        return Boolean.FALSE;
+    }
+
+    private Boolean doesMembersListContainDuplicates(Event event) {
+        if (new HashSet<>(event.getMembers()).size() != event.getMembers().size())
+            return Boolean.TRUE;
+
+        return Boolean.FALSE;
+    }
+
+    private void validateMembersList(Event event) {
+        if (isAdminInMembersList(event))
+            throw new BadRequest("Member list contains the admin and it should not.");
+
+        if (doesMembersListContainDuplicates(event))
+            throw new BadRequest("Member list contains duplicates");
     }
 
 }

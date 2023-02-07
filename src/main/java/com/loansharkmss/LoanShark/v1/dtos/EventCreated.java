@@ -9,6 +9,8 @@ public class EventCreated {
 
     private final String name;
 
+    private final String description;
+
     private final Long parentEventId;
 
     private final Long adminId;
@@ -19,9 +21,10 @@ public class EventCreated {
 
     private final List<Long> subEventsIds = new ArrayList<>();
 
-    public EventCreated(Long id, String name, Long parentEventId, Long adminId) {
+    public EventCreated(Long id, String name, String description, Long parentEventId, Long adminId) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.parentEventId = parentEventId;
         this.adminId = adminId;
     }
@@ -32,6 +35,10 @@ public class EventCreated {
 
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Long getParentEventId() {

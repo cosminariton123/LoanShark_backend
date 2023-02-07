@@ -38,6 +38,7 @@ public class LoanSharkEventMapper implements EventMapper {
         if (parentEvent != null)
             event.setParentEvent(parentEvent);
         event.setName(eventCreate.getName());
+        event.setDescription(eventCreate.getDescription());
         event.setAdmin(userService.findUserById(eventCreate.getAdminId()));
 
         for (Long memberId : eventCreate.getMembersIds()) {
@@ -66,6 +67,7 @@ public class LoanSharkEventMapper implements EventMapper {
         EventCreated eventCreated = new EventCreated(
                 event.getId(),
                 event.getName(),
+                event.getDescription(),
                 parentEventId,
                 adminId
         );
@@ -111,6 +113,7 @@ public class LoanSharkEventMapper implements EventMapper {
         EventCard eventCard = new EventCard(
                 event.getId(),
                 event.getName(),
+                event.getDescription(),
                 parentEventId,
                 parentEventName,
                 adminId,
