@@ -10,6 +10,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     Event findEventById(Long id);
 
+    Event findEventByIdAndParentEventNotNull(Long id);
+
     List<Event> findEventsByAdminAndParentEventNull(User user);
 
     List<Event> findEventsByMembersContainsAndParentEventNull(User user);

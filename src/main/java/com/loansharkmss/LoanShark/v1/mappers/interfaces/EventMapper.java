@@ -17,4 +17,5 @@ public interface EventMapper {
 
     EventCardListResponse EventCardListToEventCardListResponse(List<EventCard> eventCardList);
 
+    MushSubEventCard EventToMushSubEventCard(Event event);
 }

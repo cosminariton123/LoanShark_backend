@@ -107,4 +107,14 @@ public class LoanSharkUserMapper implements UserMapper {
                 imageCard
         );
     }
+
+    public UserMinimalCardNoImage UserToUserMinimalCardNoImage(User user) {
+        return new UserMinimalCardNoImage(
+                user.getId(),
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName()
+        );
+    }
+
 }

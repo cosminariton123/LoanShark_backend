@@ -1,10 +1,7 @@
 package com.loansharkmss.LoanShark.v1.controller;
 
 import com.loansharkmss.LoanShark.v1.config.RestControllerV1;
-import com.loansharkmss.LoanShark.v1.dtos.EventCard;
-import com.loansharkmss.LoanShark.v1.dtos.EventCardListResponse;
-import com.loansharkmss.LoanShark.v1.dtos.EventCreate;
-import com.loansharkmss.LoanShark.v1.dtos.EventCreated;
+import com.loansharkmss.LoanShark.v1.dtos.*;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.EventMapper;
 import com.loansharkmss.LoanShark.v1.model.Event;
 import com.loansharkmss.LoanShark.v1.model.User;
@@ -65,6 +62,13 @@ public class EventController {
         List<EventCard> eventCardList = events.stream().map(eventMapper::EventToEventCard).collect(Collectors.toList());
         EventCardListResponse eventCardListResponse = eventMapper.EventCardListToEventCardListResponse(eventCardList);
         return ResponseEntity.ok(eventCardListResponse);
+    }
+
+    @GetMapping("/asSubEvent/{id}")
+    public ResponseEntity<MushSubEventCard> findSubEventById(@PathVariable Long id) {
+        Event subEvent = eventService.findSubEventById(id);
+        MushSubEventCard mushSubEventCard = eventMapper.EventToMushSubEventCard(subEvent);
+        return ResponseEntity.ok(mushSubEventCard);
     }
 
 }

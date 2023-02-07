@@ -17,4 +17,6 @@ public interface UserMapper {
     UserMinimalCardListResponse UserMinimalListToUserMinimalListResponse(List<UserMinimalCard> userMinimalCardList);
 
     UserProfileCard UserToUserProfileCard(User user);
+
+    UserMinimalCardNoImage UserToUserMinimalCardNoImage(User user);
 }
