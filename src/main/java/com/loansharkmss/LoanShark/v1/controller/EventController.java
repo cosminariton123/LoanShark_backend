@@ -67,4 +67,7 @@ public class EventController {
         return ResponseEntity.ok(eventCardListResponse);
     }
 
+    public ResponseEntity<EventCard>
+    //TODO("Termina SubEvent card")
+
 }

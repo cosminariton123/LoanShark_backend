@@ -1,5 +1,6 @@
 package com.loansharkmss.LoanShark.v1.service.interfaces;
 
+import com.loansharkmss.LoanShark.v1.model.Debt;
 import com.loansharkmss.LoanShark.v1.model.Event;
 import com.loansharkmss.LoanShark.v1.model.User;
 
@@ -14,5 +15,7 @@ public interface EventService {
     void deleteEventById(Long id);
 
     List<Event> findEventsWhereUserIsAdminOrMemberAndEventIsRoot(User user);
+
+    Event addDebtToEvent(Event event, Debt debt);
 
 }

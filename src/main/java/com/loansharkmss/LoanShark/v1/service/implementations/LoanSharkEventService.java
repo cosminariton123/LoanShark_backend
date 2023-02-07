@@ -3,6 +3,7 @@ package com.loansharkmss.LoanShark.v1.service.implementations;
 import com.loansharkmss.LoanShark.v1.exceptions.BadRequest;
 import com.loansharkmss.LoanShark.v1.exceptions.InternalServerError;
 import com.loansharkmss.LoanShark.v1.exceptions.NotFoundException;
+import com.loansharkmss.LoanShark.v1.model.Debt;
 import com.loansharkmss.LoanShark.v1.model.Event;
 import com.loansharkmss.LoanShark.v1.model.User;
 import com.loansharkmss.LoanShark.v1.repository.EventRepository;
@@ -41,6 +42,11 @@ public class LoanSharkEventService implements EventService {
     }
 
     public Event saveNewEvent(Event event) {
+        validateMembersList(event);
+        return eventRepository.save(event);
+    }
+
+    public Event save(Event event) {
         validateMembersList(event);
         return eventRepository.save(event);
     }
@@ -90,4 +96,8 @@ public class LoanSharkEventService implements EventService {
         return eventsWhereUserIsAdminOrMember;
     }
 
+    public Event addDebtToEvent(Event event, Debt debt) {
+        event.getDebts().add(debt);
+        return save(event);
+    }
 }

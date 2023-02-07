@@ -1,10 +1,20 @@
 package com.loansharkmss.LoanShark.v1.mappers.implementations;
 
+import com.loansharkmss.LoanShark.v1.config.DebtStatus;
 import com.loansharkmss.LoanShark.v1.dtos.DebtCard;
+import com.loansharkmss.LoanShark.v1.dtos.DebtCreate;
 import com.loansharkmss.LoanShark.v1.mappers.interfaces.DebtMapper;
 import com.loansharkmss.LoanShark.v1.model.Debt;
+import com.loansharkmss.LoanShark.v1.service.interfaces.DebtService;
+import com.loansharkmss.LoanShark.v1.service.interfaces.UserService;
 
 public class LoanSharkDebtMapper implements DebtMapper {
+
+    private UserService userService;
+
+    public LoanSharkDebtMapper(UserService userService) {
+        this.userService = userService;
+    }
 
     public DebtCard DebtToDebtCard(Debt debt) {
 
@@ -32,5 +42,15 @@ public class LoanSharkDebtMapper implements DebtMapper {
                 debt.getValue(),
                 debt.getDebtStatus()
         );
+    }
+
+    public Debt DebtCreateToDebt(DebtCreate debtCreate) {
+        Debt debt = new Debt();
+
+        debt.setDebtStatus(DebtStatus.ACTIVE);
+        debt.setDebtor(userService.findUserById(debtCreate.getDebtorId()));
+        debt.setValue(debtCreate.getValue());
+
+        return debt;
     }
 }
