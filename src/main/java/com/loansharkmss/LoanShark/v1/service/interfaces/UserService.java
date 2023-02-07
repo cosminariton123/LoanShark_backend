@@ -1,5 +1,6 @@
 package com.loansharkmss.LoanShark.v1.service.interfaces;
 
+import com.loansharkmss.LoanShark.v1.model.Event;
 import com.loansharkmss.LoanShark.v1.model.Image;
 import com.loansharkmss.LoanShark.v1.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
